@@ -9,7 +9,7 @@
 
 /*-------------------------------INICIO DE SESION----------------------------------*/
 
-.inicioSesion{
+.inicio{
     width: 100%;
     height: 100vh;
     background-image: url(./IMG/img_fondo_login_1.png);
@@ -33,6 +33,7 @@
     align-items: center;
     justify-content:center;
     border-radius: 30px;
+    /* display: none; */
 }
 
 .logo{
@@ -49,10 +50,11 @@
     height: auto;
 }
 
-.fomularioInicioSesion__campo{
+.fomularioInicioSesion__campo,
+.fomularioRegistrarse__campo{
     width: 80%;
     text-align: center;
-    height: 40px;
+    height: 6vh;
     margin: 10px;
     background-color: #CACACA;
     border-style: none;
@@ -69,7 +71,8 @@
     margin-bottom: 20px;
 }
 
-.fomularioInicioSesion__boton{
+.fomularioInicioSesion__boton,
+.formularioRegistrarse__boton{
     background-color: #4DD42E;
     color: white;
     width: 40%;
@@ -77,6 +80,67 @@
     font-size: 18px;
     font-weight: 600;
     margin: 8px;
-    height: 40px;
+    height: 5vh;
     border-radius: 15px;
+    text-align: center;
+    align-content: center;
+}
+
+.fomularioInicioSesion__boton:hover,
+.formularioRegistrarse__boton:hover{
+  cursor: pointer;
+  box-shadow: 0px 0px 50px 2px #4DD42E;
+  transition: 1s;
+}
+
+/*-------------------------------------- FORMULARIO REGISTRARSE -----------------------------------*/
+
+.formularioRegistrarse{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(33, 33, 33, 0.9) ;
+    margin: 80px auto;
+    width: 30%;
+    height: 80%;
+    align-items: center;
+    justify-content:center;
+    border-radius: 30px;
+    display: none;
+}
+
+.formularioRegistrarse__logo{
+  width: 15%;
+  height: auto;
+  margin-bottom: 5%;
+}
+
+.inicio__mostrarRegistrarse,
+.inicio__mostrarInicioSesion{
+  display: none;
+}
+
+.formularioRegistrarse__ingresar{
+  text-decoration: underline;
+  color: #4DD42E;
+  margin-bottom: 3%;
+  font-size: 12px;
+}
+
+.formularioRegistrarse__ingresar:hover{
+  cursor: pointer;
+}
+
+.inicio__mostrarInicioSesion:checked ~.formularioRegistrarse{
+  display: none;
+}
+.inicio__mostrarInicioSesion:checked +.fomularioInicioSesion{
+  display: flex;
+}
+
+
+.inicio__mostrarRegistrarse:checked ~.fomularioInicioSesion{
+  display: none;
+}
+.inicio__mostrarRegistrarse:checked ~.formularioRegistrarse{
+  display: flex;
 }
