@@ -92,7 +92,7 @@ body{
 
 /*--------------------------------------------- RESERVAS ---------------------------------------------*/
 
-.reservas{
+.estructura{
     width: 100%;
     height: 100vh;
     background-image: url(./IMG/img_fondo_login_1.png);
@@ -129,6 +129,7 @@ body{
   width: 100%;
   height: 100%;
   grid-area: contenido;
+  padding: 2%;
 }
 
 .logoEncabezado{
@@ -185,4 +186,73 @@ body{
   color: white;
   font-size: 110%;
   font-weight: 700;
+}
+
+/*------------------------------------------------------ ESTILOS TABLA DE RESERVAS ------------------------------------*/
+
+.contenido__Boton{
+  display: flex;
+  background-color: #4DD42E;
+  width: 13%;
+  height:7%;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+  font-family: "Exo 2", sans-serif;
+  text-decoration: none;
+  font-size: 20px;
+  border-radius: 15px;
+  font-weight: 700;
+}
+
+.contenido__contenedor{
+  width: 99%;
+  height: 90%;
+  background-color: rgba(33, 33, 33, 0.9);
+  border-radius: 40px;
+  padding: 2%;
+  margin-top: 17px;
+  overflow-y: scroll;
+}
+
+.tabla{
+  color: white;
+  width: 100%;
+  border-spacing: 0 10px;
+}
+
+.tabla__encabezado{
+  color: #4DD42E;
+}
+
+.tabla__campo{
+  border: solid 1px #4DD42Eed;
+  text-align: center;
+  padding:2vh 0;
+}
+
+.tabla__campo:first-child{
+  border-radius: 15px 0 0 15px;
+}
+
+.tabla__campo:last-child{
+  border-radius: 0 15px 15px 0;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.tabla__boton{
+  display: flex;
+  width: 50%;
+  height:40px;
+  background-color: #4DD42E;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 130%;
+  font-weight: 1000;
+  margin: 0 auto;
+  border-radius: 15px;
 }
