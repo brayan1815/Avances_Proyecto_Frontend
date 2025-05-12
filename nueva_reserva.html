@@ -34,7 +34,25 @@
       </div>
     </aside>
     <main class="contenido">
-      
+      <form action="" class="formulario formulario--NuevaReserva">
+        <div class="LogoFormulario">
+                <img src="./IMG/logo_xbox.png" alt="logo_xbox" class="logo__imagen">
+                <h1 class="logo__titulo">GAME TIME</h1>
+            </div>
+        <input type="text" class="formulario__campo" placeholder="Documento del usuario">
+        <label for="fecha_prestamo" class="formulario__label">Seleccione la fecha de la reserva: </label>
+        <input type="date" class="formulario__campo" id="fecha_prestamo">
+        <label for="hora_Inicioprestamo" class="formulario__label">Seleccione la hora de inicio de la reserva: </label>
+        <input type="time" class="formulario__campo" id="hora_Inicioprestamo">
+        <label for="hora_Finprestamo" class="formulario__label">Seleccione la hora de terminacion de la reserva: </label>
+        <input type="time" class="formulario__campo" id="hora_Finprestamo">
+        <label for="consReservar" class="formulario__label">Seleccione la consola que desea reservar:</label>
+        <select name="consolas" id="consReservar" class="formulario__campo">
+            <option value="0">Seleccione</option>
+          </select>
+          <label for="" class="formulario__label formulario__label--verde">precio por hora: ----</label>
+        <button class="formulario__boton">Reservar</button>
+      </form>
     </main>
   </div>
 </body>

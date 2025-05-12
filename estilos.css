@@ -33,6 +33,7 @@ body{
     align-items: center;
     justify-content:center;
     border-radius: 30px;
+    color: white;
 }
 
 .LogoFormulario{
@@ -49,6 +50,10 @@ body{
     height: auto;
 }
 
+.formulario__label{
+  font-weight: 700;
+}
+
 .formulario__campo{
     width: 80%;
     text-align: center;
@@ -61,6 +66,7 @@ body{
     font-size: 16px;
     outline: none;
     font-weight: 700;
+    padding: 0 2%;
 }
 
 .formulario__link{
@@ -175,7 +181,7 @@ body{
 }
 
 .botonSidebar__icono{
-  font-size: 120%;
+  font-size: 1.2vw;
   margin-right: 8%;
   color: #4DD42E;
 }
@@ -184,7 +190,7 @@ body{
   font-family: "Exo 2", sans-serif;
   text-decoration: none;
   color: white;
-  font-size: 110%;
+  font-size: 1.2vw;
   font-weight: 700;
 }
 
@@ -256,3 +262,14 @@ body{
   margin: 0 auto;
   border-radius: 15px;
 }
+ /*----------------------------------- ESTILOS NUEVA RESERVA-------------------------------------------*/
+
+ .formulario--NuevaReserva{
+  height: 100%;
+  margin: 10px auto;
+ }
+
+ .formulario__label--verde{
+    color:#4DD42E;
+    font-size: 12px;
+ }
