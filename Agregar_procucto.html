@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Producto</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <body class="estructura">
+    <header class="encabezado">
+        <div class="logoEncabezado">
+          <h2 class="logoEncabezado__texto">Game Time</h2>
+          <img src="./IMG/logo_xbox.png" alt="logo_xbox" class="logoEncabezado__imagen">
+        </div>
+        <div class="encabezadoPerfil">
+          <h2 class="encabezadoPerfil__nombre">Brayan Fernandez</h2>
+          <i class="bi bi-person-fill encabezadoPerfil__icono"></i>
+        </div>
+      </header>
+      <aside class="sidebar">
+        <div class="sidebar__boton botonSidebar">
+          <i class="bi bi-calendar-event-fill botonSidebar__icono"></i>
+          <a href="reservas.html" class="botonSidebar__texto">Reservas</a>
+        </div>
+        <div class="sidebar__boton botonSidebar">
+          <i class="bi bi-cookie botonSidebar__icono"></i>
+          <a href="./Productos.html" class="botonSidebar__texto">Prdoductos</a>
+        </div>
+        <div class="sidebar__boton botonSidebar">
+          <i class="bi bi-controller botonSidebar__icono"></i>
+          <a href="#" class="botonSidebar__texto">Consolas</a>
+        </div>
+      </aside>
+      <main class="contenido">
+        <div class="contenido__contenedor">
+          <form action="" class="formulario formulario--AgregarProducto">
+            <label for="producto" class="formulario__label">Seleccione el producto que desea agregar:</label>
+            <select name="producto" id="producto" class="formulario__campo">
+              <option value="0">Seleccione</option>
+            </select>
+            <label for="Cantidad" class="formulario__label">Cantidades disponibles:</label>
+            <div id="cantDisponible" class="formulario__campo formulario__campo--verde">3</div>
+            <label for="precio_unidad" class="formulario__label">Precio:</label>
+            <div id="precio_unidad" class="formulario__campo formulario__campo--verde">$1.500</div>
+            <input type="text" placeholder="Ingrese la cantidad que desea comprar" class="formulario__campo">
+            <label for="subtotal" class="formulario__label">Subtotal:</label>
+            <div id="subtotal" class="formulario__campo formulario__campo--verde">$3.000</div>
+            <button class="formulario__boton">Agregar</button>
+            
+          </form>
+        </div>
+      </main>
+    
+  </body>
+</body>
+</html>
