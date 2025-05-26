@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Productos</title>
+  <title>Nuevo Producto</title>
   <link rel="stylesheet" href="estilos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
+
 </head>
 <body>
   <div class="estructura">
@@ -34,26 +35,17 @@
       </div>
     </aside>
     <main class="contenido">
-      <div class="botonesSuperiores">
-        <a href="nuevo_productos.html" class="contenido__Boton"><i class="bi bi-egg-fried"></i>Nuevo Producto</a>
-      </div>
-      <div class="contenido__contenedor">
-        <div class="cards">
-          <div class="card">
-            <img src="/IMG/margarita.png" alt="Margarita" class="card__imagen">
-            <hr class="card__linea">
-            <h3 class="card__nombre">Papas Margarita</h3>
-            <p class="card__descripcion">Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices.</p>
-            <h3 class="card__precio">$3.500</h3>
-            <h3 class="card__cantidades">Cantidad restante:3</h3>
-            <div class="card__botones">
-              <a href="#" class="card__boton"><i class="bi bi-pencil-square"></i></a>
-              <a href="#" class="card__boton"><i class="bi bi-trash-fill"></i></a>
-            </div>
-          </div>
-                
-        </div>
-      </div>
+      <form action="#" class="formulario formulario--NuevoProducto">
+        <label class="formulario__insertarImagen" for="seleccionarImagen">
+          <i class="bi bi-card-image insertarImagen__icono" ></i>
+          <label for="seleccionarImagen">Haga click para insertar una imagen</label>
+        </label>
+        <input type="file" class="formulario__campo formulario__campo--oculto" id="seleccionarImagen">
+        <input type="text" class="formulario__campo" placeholder="Nombre de la consola" >
+        <textarea name="" class="formulario__campo formulario__campo--textArea" id="" placeholder="Ingrese una descripcion de la consola..."></textarea>
+        <input type="text" class="formulario__campo" placeholder="Precio por hora de la consola">
+        <button class="formulario__boton">Guardar</button>
+      </form>
     </main>
   </div>
 </body>
