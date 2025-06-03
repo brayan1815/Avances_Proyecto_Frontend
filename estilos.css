@@ -483,7 +483,7 @@ body{
 .card{
   border: solid 2px #4DD42E;
   background-color: #212121;
-  height: 40vh;
+  height: 370px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -506,7 +506,7 @@ body{
 
 .card--horizontal{
   flex-direction: row;
-  height: 20vh;
+  height: 190px;
 }
 
 .card__linea{
