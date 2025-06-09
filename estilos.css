@@ -254,8 +254,44 @@ body{
 }
 
 .botonesSuperiores__buscar{
-  background-color: red;
+  display: flex;
   height: 100%;
+  width: 40%;
+  align-items: center;
+  justify-content: center;
+}
+
+.buscar__input{
+  width: 80%;
+  height: 60%;
+  border: none;
+  background-color: rgba(33, 33, 33, 0.9);
+  border-bottom: solid 1px #4DD42E;
+  border-top: solid 1px #4DD42E;
+  border-right: solid 1px #4DD42E;
+  border-radius: 0 15px 15px 0;
+  outline: none;
+  color: white;
+}
+
+.buscar__input::placeholder{
+  color: rgba(255, 255, 255, 0.589);
+  
+}
+
+.buscar__icono{
+  display: flex;
+  background-color: rgba(33, 33, 33, 0.9);
+  color: white;
+  font-family: 15px;
+  height: 60%;
+  width: 7%;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid 1px #4DD42E;
+  border-top: solid 1px #4DD42E;
+  border-left: solid 1px #4DD42E;
+  border-radius: 15px 0 0 15px;
 }
 
 .infoEstadoReserva{
@@ -562,7 +598,7 @@ body{
 .infoPerfil{
   position: absolute;
   top: 10%;
-  right: -50%;
+  right: -220%;
   z-index: 2;
   width: 260px;
   height: 5vh;
@@ -596,8 +632,62 @@ body{
 
 
 @media(max-width:1110px){
+
+  /*--- DISTRIBUCION DEL LAYAUT----*/
+  .estructura{
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-areas:"encabezado"
+                        "contenido"
+                        "sidebar";
+  }
+
+  .sidebar{
+    background-color: #212121;
+    border-top: none;
+    padding-top: 5%;
+    display: flex;
+    padding: 0;
+  }
+
+  .sidebar__boton{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    padding: 0;
+  
+  }
+
+  .botonSidebar__icono{
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .botonSidebar__texto{
+    font-size: 13px ;
+  }
+
+
+
+  .encabezadoPerfil__nombre{
+    display: none;
+  }
+
+  .logoEncabezado__texto{
+    font-size: 1.3rem;
+  }
+
+  .logoEncabezado__imagen{
+    width: 35px;
+    height: 35px;
+  }
+
+  /*-------------------------------------------*/
+
   .contenido__contenedor{
     overflow-x: auto;
+    height: 87%;
   }
 
   .tabla{
@@ -608,6 +698,24 @@ body{
     width: 30px;
     height: 30px;
     font-size: 15px;
+  }
+
+  .botonesSuperiores{
+    flex-direction: column;
+    gap: 5px;
+    height: 10%;
+    justify-content: center;
+  }
+
+  .infoEstadoReserva{
+    height: 30px;
+    width: 100%;
+  }
+
+  .infoEstado{
+    height: 100%;
+    width: 32%;
+    font-size: 17px;
   }
 
   /*--------- INFO DE LA RESERVA-------*/
@@ -636,6 +744,53 @@ body{
   .contenido__Boton{
     width: 200px;
     font-size: 17px;
+    height: 100px;
+  }
+
+  .contenido__Boton--cobrar{
     height: 40px;
   }
+
+  /*------------------- FORMULARIOS ----------------------------------*/
+
+  .formulario{
+    width: 90%;
+  }
+
+  .formulario--NuevaReserva{
+    width: 100%;
+    height: 95%;
+  }
+
+  .logo__imagen{
+    width: 50px;
+    height: auto;
+  }
+
+  .logo__titulo{
+    font-size: 25px;
+  }
+
+
+  .formulario--NuevoProducto{
+    width: 100%;
+  }
+
+  .formulario__insertarImagen{
+    width: 70%;
+  }
+
+  /*-------------------- USUARIOS -----------------------------*/
+
+  .botonesSuperiores__buscar{
+    width: 80%;
+  }
+  .buscar__input{
+    height: 35px;
+  }
+  .buscar__icono{
+    width: 35px;
+    height: 35px;
+  }
+
 }
