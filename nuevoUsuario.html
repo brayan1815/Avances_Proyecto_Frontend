@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usuarios</title>
+  <title>Nuevo Usuario</title>
   <link rel="stylesheet" href="estilos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
+
 </head>
 <body>
   <div class="estructura">
@@ -37,44 +38,23 @@
         <a href="usuarios.html" class="botonSidebar__texto">Usuarios</a>
       </div>
     </aside>
-    <main class="contenido">
-      <div class="botonesSuperiores">
-        <a href="nuevoUsuario.html" class="contenido__Boton"><i class="bi bi-person-plus-fill"></i>Nuevo Usuario</a>
-        <div class="botonesSuperiores__buscar">
-          <i class="bi bi-search buscar__icono"></i>
-          <input type="text" class="buscar__input" placeholder="Buscar usuario">
+    <main class="contenido contenido--nuevoUsuario">
+      <form action="#" class="formulario formulario--nuevoUsuario">
+        <div class="LogoFormulario ">
+            <img src="./IMG/logo_xbox.png" alt="logo_xbox" class="logo__imagen logo__imagen--pequenia">
+            <h1 class="logo__titulo">GAME TIME</h1>
         </div>
-      </div>
-      <div class="contenido__contenedor">
-        <!-- <table class="tabla">
-          <thead class="tabla__encabezado">
-            <tr>
-              <th>Documento</th>
-              <th>Nombre</th>
-              <th>correo</th>
-              <th>Rol</th>
-
-            </tr>
-          </thead>
-          <tbody  class="tabla__cuerpo">
-            <tr class="tabla__fila">
-              <td class="tabla__campo"> 105621824</td>
-              <td class="tabla__campo">Brayan Fernandez</td>
-              <td class="tabla__campo">brayanfernandezjimenez18@gmail.com</td>
-              <td class="tabla__campo">Administrador</td>
-              <td class="tabla__campo">
-                <div class="contenedorBotonesTabla">
-                  <a href="" class="registro__boton registro__boton--eliminar"><i class="bi bi-trash-fill"></i></a>
-                  <a href="registrarse.html" class="registro__boton registro__boton--editar"><i class="bi bi-pencil-square"></i></a>
-                </div>
-              </td>
-            </tr>
-
-          </tbody>
-        </table> -->
-      </div>
+          <input type="text" class="formulario__campo" placeholder="Ingrese su nombre">
+          <input type="text" class="formulario__campo" placeholder="Ingrese su telefono">
+          <input type="text" class="formulario__campo" placeholder="Ingrese su correo electronico">
+          <input type="password" class="formulario__campo" placeholder="Ingrese su contraseña">    
+            <select name="" id="" class="formulario__campo">
+                <option value="0">Seleccione el Rol</option>
+            </select>  
+          <button class="formulario__boton">Registrar</button>
+        </form>
     </main>
   </div>
 </body>
-<script type="module" src="./JS/usuarios.js"></script>
+<script type="module" src="JS/nuevoUsuario.js"></script>
 </html>

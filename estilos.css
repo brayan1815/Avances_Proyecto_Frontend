@@ -50,9 +50,20 @@ body{
     margin-bottom: 20px;
 }
 
+.LogoFormulario--logo{
+
+  width: 15px;
+  height: auto;
+
+}
+
 .logo__imagen{
     width: 90px;
     height: auto;
+}
+
+.logo__imagen--pequenia{
+  width: 60px;
 }
 
 .formulario__label{
@@ -185,6 +196,12 @@ body{
   padding: 2%;
 }
 
+.contenido--nuevoUsuario{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .logoEncabezado{
   display: flex;
   height: 100%;
@@ -263,7 +280,7 @@ body{
 
 .buscar__input{
   width: 80%;
-  height: 60%;
+  height: 35px;
   border: none;
   background-color: rgba(33, 33, 33, 0.9);
   border-bottom: solid 1px #4DD42E;
@@ -284,8 +301,8 @@ body{
   background-color: rgba(33, 33, 33, 0.9);
   color: white;
   font-family: 15px;
-  height: 60%;
-  width: 7%;
+  height: 35px;
+  width: 40px;
   justify-content: center;
   align-items: center;
   border-bottom: solid 1px #4DD42E;
@@ -411,6 +428,13 @@ body{
  .formulario__label--verde{
     color:#4DD42E;
     font-size: 12px;
+ }
+
+ .formulario--nuevoUsuario{
+  width: 40%;
+  height: 100%;
+  margin: 0;
+  /* padding: 20px; */
  }
 
  /*---------------------------------- ESTILOS INFO DE LA RESERVA------------------------------------------*/
