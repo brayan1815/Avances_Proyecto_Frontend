@@ -9,19 +9,17 @@
 </head>
 <body>
         <header class="degradado"></header>
-        <form action="#" class="formulario">
+        <form action="#" class="formulario" novalidate>
             <div class="LogoFormulario">
                 <img src="./IMG/logo_xbox.png" alt="logo_xbox" class="logo__imagen">
                 <h1 class="logo__titulo">GAME TIME</h1>
             </div>
-            <input type="text" class="formulario__campo" placeholder="Ingrese su correo electronico">
-            <input type="password" class="formulario__campo" placeholder="Ingrese su contraseña" >
+            <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="Ingrese su correo electronico" required min="3" id="correo"></div>
+            <div class="contenedorCampo"><input type="password" class="formulario__campo" placeholder="Ingrese su contraseña" required min="3" id="contrasenia"></div>         
             <a href="#" class="formulario__link">¿olvido su contraseña?</a>
-            <a class="formulario__boton" href="reservas.html">Ingresar</a>
+            <button class="formulario__boton" >Ingresar</button>
             <a class="formulario__boton" href="registrarse.html">Registrarse</a>
         </form>
-
-        
-    
 </body>
+<script type="module" src="./JS/iniciarSesion.js"></script>
 </html>

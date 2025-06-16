@@ -70,6 +70,13 @@ body{
   font-weight: 700;
 }
 
+.contenedorCampo{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .formulario__campo{
     width: 80%;
     text-align: center;
@@ -83,6 +90,12 @@ body{
     outline: none;
     font-weight: 700;
     padding: 0 2%;
+}
+
+span{
+  color: red;
+  font-size: 12px;
+  text-align: center;
 }
 
 .formulario__campo--textArea{
@@ -654,6 +667,10 @@ body{
   transform: 3s;
 }
 
+.border--red{
+  border: solid 2px red;
+
+}
 
 @media(max-width:1110px){
 
