@@ -1,5 +1,4 @@
 import { get } from "../../api.js";
-import Swal from 'sweetalert2';
 
 export const crearTabla=(encabezados,contenedor)=>{
     const tabla=document.createElement('table');
@@ -64,7 +63,12 @@ export const crearFila=(info,contenedor)=>{
     contenedor.append(fila);
 }
 
-const validarMinimo = (campo)=> {
+export const limpiar=(campo)=>{
+  if(campo.nextElementSibling)campo.nextElementSibling.remove();
+  campo.classList.remove('border--red');
+}
+
+export const validarMinimo = (campo)=> {
   const texto = campo.value;
   const minimo = campo.getAttribute('min');
 
@@ -75,12 +79,13 @@ const validarMinimo = (campo)=> {
     if (campo.nextElementSibling) campo.nextElementSibling.remove();
     campo.insertAdjacentElement('afterend', span)
     campo.classList.add('border--red');
+    return false;
   } else {
     return true
   }
 }
 
-const validarContrasenia = (campo) => {
+export const validarContrasenia = (campo) => {
   const contrasenia = campo.value;
   const expresion = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/;
   
@@ -95,11 +100,57 @@ const validarContrasenia = (campo) => {
   return true;
 }
 
-const validarContraseniaUsuario = async (userName,userCont,usuarios) => {
-  for (let n = 0; n < usuarios.length; n++){
-    if (usuario[n].nombre == userName && usuarios[n].contrasenia==userCont) return true;
+const validarContraseniaUsuario =(userCorreo,userCont,usuarios) => {
+  userCorreo=userCorreo.toLowerCase();
+
+  for (let n = 0; n < usuarios.length; n++){ 
+    if (usuarios[n].correo == userCorreo && usuarios[n].contrasenia==userCont) return true;
   }
+
   return false;
+}
+
+export const validarLetras=(event)=>{
+  let tecla=event.key;
+    const letras=/[a-zñáéíóú\s]/i;
+    if(!letras.test(tecla)&& tecla!="Backspace"){
+        event.preventDefault();
+    }
+}
+
+export const validarNumeros=(event)=>{
+  let tecla=event.key;
+    const numeros=/[0-9]/;
+    if(!numeros.test(tecla) && tecla!="Backspace"){
+    event.preventDefault();
+  }
+}
+
+export const validarMaximo=(event)=>{
+  const maximo=event.target.getAttribute('max');
+
+  if(event.target.value.length>=maximo && event.key!='Backspace')event.preventDefault();
+}
+
+export const validarCorreo=(campo)=>{
+  const expresionCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if(campo.value.match(expresionCorreo)) return true
+  else{
+    if(campo.nextElementSibling)campo.nextElementSibling.remove();
+
+    const span=document.createElement('span');
+    span.textContent="El correo ingresado no es valido";
+    campo.insertAdjacentElement('afterend',span);
+    campo.classList.add('border--red');
+
+    return false
+  }
+}
+
+export const contarCamposFormulario=(formulario)=>{
+  const campos=[...formulario].filter((campo)=>campo.hasAttribute('required'));
+  return campos.length;
 }
 
 export const validar = (event) => {
@@ -114,7 +165,13 @@ export const validar = (event) => {
   if (inputText.length > 0) {
     inputText.forEach(campo => {
       if (validarMinimo(campo)) {
-        info[campo.getAttribute('id')] = campo.value;
+        if(campo.getAttribute('id')=='correo'){
+          if(validarCorreo(campo)){
+            info[campo.getAttribute('id')] = campo.value.toLowerCase();
+          }
+        }else{
+          info[campo.getAttribute('id')] = campo.value;
+        }
       }
     });
   }
@@ -132,8 +189,6 @@ export const validar = (event) => {
   if (selects.length > 0) {
     
   }
-  console.log(info);
-  
   return info;
 }
 
@@ -141,13 +196,10 @@ export const validarIngreso = async (event) => {
   const datos = await validar(event);
   const usuarios = await get('usuarios');
   if (Object.keys(datos).length == 2) {
-    if (validarContraseniaUsuario(datos.nombre, datos.contrasenia, usuarios)) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
-        icon: 'error',
-        confirmButtonText: 'Cool'
-      })
+    if (validarContraseniaUsuario(datos.correo, datos.contrasenia, usuarios)) {
+      alert('el usuario puede ingresar ')
+    }else{
+      alert('El correo o la contraseña ingresados no son correctos')
     }
   }
 }
