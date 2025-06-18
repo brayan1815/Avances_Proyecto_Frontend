@@ -12,3 +12,17 @@ export const post=async(endpoint,info)=>{
         body:JSON.stringify(info)
     })
 }
+
+export const put = async (endpoint, info) => {
+  try {
+    return await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(info)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}

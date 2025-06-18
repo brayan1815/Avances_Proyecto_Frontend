@@ -69,6 +69,7 @@ export const limpiar=(campo)=>{
   campo.classList.remove('border--red');
 }
 
+
 export const validarMinimo = (campo)=> {
   const texto = campo.value;
   const minimo = campo.getAttribute('min');
@@ -188,7 +189,16 @@ export const validar = (event) => {
 
 
   if (selects.length > 0) {
-    
+    selects.forEach(select => {
+      if (select.value == 0) {
+        if (select.nextElementSibling)nextElementSibling.remove();
+        const mensaje = document.createElement('span');
+        mensaje.textContent = "Debe seleccionar un rol de usuario";
+        select.insertAdjacentElement('afterend',mensaje)
+      } else {
+        info[select.getAttribute('id')] = select.value;
+      }
+    });
   }
   return info;
 }
@@ -206,4 +216,17 @@ export const validarIngreso = async (event) => {
       alert('El correo o la contraseña ingresados no son correctos')
     }
   }
+}
+
+export const cargarSelectRoles = async(select) => {
+  const roles = await get('roles');
+
+  roles.forEach(rol => {
+    const valor = document.createElement('option');
+    valor.setAttribute('value', rol.id)
+    valor.textContent = rol.rol;
+    select.append(valor);
+  });
+  
+
 }

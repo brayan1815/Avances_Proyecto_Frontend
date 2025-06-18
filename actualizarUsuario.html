@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuevo Usuario</title>
+  <title>Actualizar Usuario</title>
   <link rel="stylesheet" href="estilos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
 
@@ -44,12 +44,13 @@
             <img src="./IMG/logo_xbox.png" alt="logo_xbox" class="logo__imagen logo__imagen--pequenia">
             <h1 class="logo__titulo">GAME TIME</h1>
         </div>
-          <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="nombre" required id="nombre"></div>
-          <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="telefono" required id="telefono"></div>
+          <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="documento" required id="documento"min="5"></div>
+          <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="nombre" required id="nombre" min="3"></div>
+          <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="telefono" required id="telefono" min="10" max="10"></div>
           <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="correo electronico" id="correo" required></div>
           <div class="contenedorCampo"><input type="password" class="formulario__campo" placeholder="contraseña" required id="contrasenia"></div>
           <div class="contenedorCampo">
-            <select name="" id="" class="formulario__campo" required>
+            <select name="" id="id_rol" class="formulario__campo" required >
               <option value="0">Seleccione el Rol</option>
             </select>
           </div>    

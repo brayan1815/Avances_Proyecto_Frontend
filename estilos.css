@@ -20,6 +20,10 @@ button{
   border: none;
 }
 
+button i {
+  pointer-events: none;
+}
+
 .degradado{
     width: 100vw;
     height: 1px;
