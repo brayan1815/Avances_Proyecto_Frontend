@@ -1,3 +1,4 @@
+import { post } from "../api.js";
 import { contarCamposFormulario, limpiar, validar, validarContrasenia, validarCorreo, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "./MODULES/modules.js";
 
 
@@ -10,11 +11,23 @@ const contrasenia=document.querySelector('#contrasenia');
 
 const cantidadCampos=contarCamposFormulario(formulario);
 
-const nuevoUsuario=(event)=>{
+const nuevoUsuario=async(event)=>{
     if(Object.keys(validar(event)).length==cantidadCampos){
         let objeto=validar(event);
-        objeto['id_rol']=2;
-        console.log(objeto);      
+        objeto['id_rol']=2; 
+        objeto['telefono'] = Number(objeto['telefono']);
+        objeto['documento'] = Number(objeto['documento']);
+        
+        const respuesta=await post('usuarios',objeto);
+        if(respuesta.ok){
+            alert("usuario creado correctamente");
+            documento.value="";
+            nombre.value="";
+            telefono.value="";
+            correo.value="";
+            contrasenia.value="";
+        }
+        else alert("no se pudo crear el usuario");
     }
 }
 

@@ -1,10 +1,13 @@
-import { limpiar, validarContrasenia, validarIngreso, validarMinimo } from "./MODULES/modules.js";
+import { limpiar, validarContrasenia, validarIngreso, validarMinimo,validarCorreo } from "./MODULES/modules.js";
 
 
 const formulario = document.querySelector('form');
 const correo=document.querySelector('#correo');
 const contrasenia=document.querySelector('#contrasenia');
 
+
+correo.addEventListener('blur',(event)=>{if(validarCorreo(event.target))limpiar(event.target)})
+correo.addEventListener('keydown',(event)=>{if(validarCorreo(event.target))limpiar(event.target)})
 formulario.addEventListener('submit',validarIngreso);
-correo.addEventListener('keydown',(event)=>{if(validarMinimo(event.target)) limpiar(event.target)});
-contrasenia.addEventListener('keydown',(event)=>{if(validarContrasenia(event.target))limpiar(event.target)})
+contrasenia.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})
+contrasenia.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})

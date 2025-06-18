@@ -22,7 +22,7 @@ export const crearTabla=(encabezados,contenedor)=>{
     contenedor.append(tabla)
 }
 
-export const crearFila=(info,contenedor)=>{
+export const crearFila=(info,id_usuario,contenedor)=>{
     const fila=document.createElement('tr');
     fila.classList.add('tabla__fila');
 
@@ -39,7 +39,7 @@ export const crearFila=(info,contenedor)=>{
     const contenedorBotones=document.createElement('div');
     contenedorBotones.classList.add('contenedorBotonesTabla');
 
-    const botonEliminar=document.createElement('a');
+    const botonEliminar=document.createElement('button');
     botonEliminar.classList.add('registro__boton','registro__boton--eliminar')
 
     const iconoEliminar=document.createElement('i');
@@ -48,8 +48,9 @@ export const crearFila=(info,contenedor)=>{
     botonEliminar.append(iconoEliminar);
     contenedorBotones.append(botonEliminar);
 
-    const botonEditar=document.createElement('a');
+    const botonEditar=document.createElement('button');
     botonEditar.classList.add('registro__boton','registro__boton--editar')
+    botonEditar.setAttribute('id',id_usuario);
 
     const iconoEditar=document.createElement('i');
     iconoEditar.classList.add('bi','bi-pencil-square');
@@ -104,7 +105,7 @@ const validarContraseniaUsuario =(userCorreo,userCont,usuarios) => {
   userCorreo=userCorreo.toLowerCase();
 
   for (let n = 0; n < usuarios.length; n++){ 
-    if (usuarios[n].correo == userCorreo && usuarios[n].contrasenia==userCont) return true;
+    if (usuarios[n].correo == userCorreo && usuarios[n].contrasenia==userCont) return usuarios[n].id;
   }
 
   return false;
@@ -196,8 +197,11 @@ export const validarIngreso = async (event) => {
   const datos = await validar(event);
   const usuarios = await get('usuarios');
   if (Object.keys(datos).length == 2) {
-    if (validarContraseniaUsuario(datos.correo, datos.contrasenia, usuarios)) {
+    if (validarContraseniaUsuario(datos.correo, datos.contrasenia, usuarios)!=false) {
       alert('el usuario puede ingresar ')
+      const id=validarContraseniaUsuario(datos.correo, datos.contrasenia, usuarios);
+
+      window.location.href=`reservas.html?id=${encodeURIComponent(id)}`
     }else{
       alert('El correo o la contraseña ingresados no son correctos')
     }
