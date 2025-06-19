@@ -1,5 +1,5 @@
 import { crearFila, crearTabla } from "./modules/modules.js"
-import { get } from "../API.js";
+import { del, get } from "../API.js";
 
 const main=document.querySelector('.contenido__contenedor');
 
@@ -21,11 +21,21 @@ if(usuarios.length>0){
 
 const tabla=document.querySelector('.tabla');
 
-window.addEventListener('click',(event)=>{
-    if(event.target.getAttribute('class')=='registro__boton registro__boton--editar'){
+window.addEventListener('click',async(event)=>{
+  if(event.target.getAttribute('class')=='registro__boton registro__boton--editar'){
         const id=event.target.getAttribute('id');       
         window.location.href=`actualizarUsuario.html?id=${encodeURIComponent(id)}`
+  }
+  
+  if (event.target.getAttribute('class') == 'registro__boton registro__boton--eliminar') {
+    const id = event.target.getAttribute('id');
+    const respuesta = await del(`usuarios/${id}`)
+    
+    if (respuesta.ok) {
+      alert('Se ha eliminado el usuario correctamente');
     }
+    
+  }
 })
 
 

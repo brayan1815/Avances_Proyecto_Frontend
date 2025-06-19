@@ -53,7 +53,8 @@ export const crearFila=(info,id_usuario,contenedor)=>{
     botonEditar.setAttribute('id',id_usuario);
 
     const iconoEditar=document.createElement('i');
-    iconoEditar.classList.add('bi','bi-pencil-square');
+  iconoEditar.classList.add('bi', 'bi-pencil-square');
+  botonEliminar.setAttribute('id',id_usuario)
 
     botonEditar.append(iconoEditar);
     contenedorBotones.append(botonEditar);

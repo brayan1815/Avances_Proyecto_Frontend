@@ -26,3 +26,12 @@ export const put = async (endpoint, info) => {
     console.log(error)
   }
 }
+
+export const del=async(endpoint)=>{
+  return await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`,{
+      method:'DELETE',
+      headers:{
+          'Content-Type':'application/json'
+      }
+  })
+}
