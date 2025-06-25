@@ -38,13 +38,13 @@
         <a href="usuarios.html" class="botonSidebar__texto">Usuarios</a>
       </div>
     </aside>
-    <main class="contenido">
-      <form action="#" class="formulario formulario--NuevoProducto">
+    <main class="contenido contenido--flex">
+      <form action="#" class="formulario formulario--NuevoProducto" novalidate>
         <label class="formulario__insertarImagen" for="seleccionarImagen">
           <i class="bi bi-card-image insertarImagen__icono" ></i>
           <label for="seleccionarImagen">Haga click para insertar una imagen</label>
         </label>
-        <input type="file" class="formulario__campo formulario__campo--oculto" id="seleccionarImagen">
+        <input type="file" class="formulario__campo formulario__campo--oculto" id="seleccionarImagen" accept="image/png">
         <input type="text" class="formulario__campo" placeholder="Nombre del producto" >
         <textarea name="" class="formulario__campo formulario__campo--textArea" id="" placeholder="Ingrese una descripcion del producto..."></textarea>
         <input type="text" class="formulario__campo" placeholder="Precio del prodcto">
@@ -54,4 +54,5 @@
     </main>
   </div>
 </body>
+<script type="module" src="./JS/nuevo_producto.js"></script>
 </html>

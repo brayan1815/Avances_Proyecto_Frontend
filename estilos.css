@@ -47,6 +47,8 @@ button i {
 
 .formulario--NuevoProducto{
   width: 50%;
+  margin: 0px 0px;
+  height: 100%;
 }
 
 .LogoFormulario{
@@ -145,7 +147,9 @@ span{
 
 
 .formulario__insertarImagen{
+  text-align: center;
   width: 40%;
+  font-size: 1vw;
   height: 20%;
   border: dashed 2px #4DD42E;
   border-radius: 15px;
@@ -216,7 +220,7 @@ span{
   padding: 2%;
 }
 
-.contenido--nuevoUsuario{
+.contenido--flex{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -829,6 +833,8 @@ span{
 
   .formulario--NuevoProducto{
     width: 100%;
+    height: 100%;
+    margin: 0px;
   }
 
   .formulario__insertarImagen{

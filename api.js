@@ -13,6 +13,13 @@ export const post=async(endpoint,info)=>{
     })
 }
 
+export const post_imgs=async(formData)=>{
+  return await fetch(`http://localhost:8080/APIproyecto/api/imagenes`,{
+    method:'POST',
+    body:formData,
+  })
+}
+
 export const put = async (endpoint, info) => {
   try {
     return await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`,{

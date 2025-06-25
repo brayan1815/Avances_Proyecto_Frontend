@@ -151,6 +151,20 @@ export const validarCorreo=(campo)=>{
   }
 }
 
+export const validarImagen=(campo,label)=>{
+  if(campo.files.length<1){
+    const mensaje=document.createElement('span');
+    mensaje.textContent="Debe seleccionar una imagen";
+
+    if(label.nextElementSibling)label.nextElementSibling.remove();
+    label.classList.add('border--red')
+    label.insertAdjacentElement('afterend',mensaje);
+    return false;
+  }else{
+    return campo.files[0];
+  }
+}
+
 export const contarCamposFormulario=(formulario)=>{
   const campos=[...formulario].filter((campo)=>campo.hasAttribute('required'));
   return campos.length;
