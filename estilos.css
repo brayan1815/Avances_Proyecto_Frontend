@@ -86,6 +86,11 @@ button i {
   align-items: center;
 }
 
+.contenedorCampo--imagen{
+  height: 20%;
+  margin-bottom: 5%;
+}
+
 .formulario__campo{
     width: 80%;
     text-align: center;
@@ -150,7 +155,7 @@ span{
   text-align: center;
   width: 40%;
   font-size: 1vw;
-  height: 20%;
+  height: 100%;
   border: dashed 2px #4DD42E;
   border-radius: 15px;
   display: flex;
@@ -687,6 +692,14 @@ span{
 .border--red{
   border: solid 2px red;
 
+}
+
+.border--punteado--red{
+  border: dashed 2px red;
+}
+
+.span--verde{
+  color: #4DD42E;
 }
 
 @media(max-width:1110px){

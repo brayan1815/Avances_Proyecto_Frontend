@@ -40,15 +40,17 @@
     </aside>
     <main class="contenido contenido--flex">
       <form action="#" class="formulario formulario--NuevoProducto" novalidate>
-        <label class="formulario__insertarImagen" for="seleccionarImagen">
-          <i class="bi bi-card-image insertarImagen__icono" ></i>
-          <label for="seleccionarImagen">Haga click para insertar una imagen</label>
-        </label>
-        <input type="file" class="formulario__campo formulario__campo--oculto" id="seleccionarImagen" accept="image/png">
-        <input type="text" class="formulario__campo" placeholder="Nombre del producto" >
-        <textarea name="" class="formulario__campo formulario__campo--textArea" id="" placeholder="Ingrese una descripcion del producto..."></textarea>
-        <input type="text" class="formulario__campo" placeholder="Precio del prodcto">
-        <input type="text" class="formulario__campo" placeholder="Cantidades disponibles">
+        <div class="contenedorCampo contenedorCampo--imagen">
+          <label class="formulario__insertarImagen" for="seleccionarImagen">
+            <i class="bi bi-card-image insertarImagen__icono" ></i>
+            <label for="seleccionarImagen">Haga click para insertar una imagen</label>
+          </label>
+        </div>
+        <div class="contenedorCampo"><input type="file" class="formulario__campo formulario__campo--oculto" id="seleccionarImagen" accept="image/png" required></div>
+        <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="Nombre del producto" required ></div>
+        <div class="contenedorCampo"><textarea name="" class="formulario__campo formulario__campo--textArea" id="" placeholder="Ingrese una descripcion del producto..." required></textarea></div>
+        <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="Precio del prodcto" required></div>
+        <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="Cantidades disponibles" required></div>
         <button class="formulario__boton">Guardar</button>
       </form>
     </main>

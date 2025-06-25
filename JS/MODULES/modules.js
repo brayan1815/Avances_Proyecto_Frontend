@@ -157,10 +157,16 @@ export const validarImagen=(campo,label)=>{
     mensaje.textContent="Debe seleccionar una imagen";
 
     if(label.nextElementSibling)label.nextElementSibling.remove();
-    label.classList.add('border--red')
+    label.classList.add('border--punteado--red')
     label.insertAdjacentElement('afterend',mensaje);
     return false;
-  }else{
+  } else {
+    if (label.nextElementSibling) label.nextElementSibling.remove();
+    label.classList.remove('border--punteado--red')
+    const mensaje = document.createElement('span');
+    mensaje.textContent = campo.files[0].name;
+    mensaje.classList.add('span--verde')
+    label.insertAdjacentElement('afterend',mensaje)
     return campo.files[0];
   }
 }
