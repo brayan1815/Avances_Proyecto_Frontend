@@ -73,8 +73,15 @@ export const limpiar=(campo)=>{
 
 export const validarMinimo = (campo)=> {
   const texto = campo.value;
-  const minimo = campo.getAttribute('min');
+  let minimo = 0;
+  
 
+  if (campo.tagName == "INPUT") {
+    minimo = campo.getAttribute('min');
+  }
+  else if (campo.tagName == 'TEXTAREA') {
+    minimo = campo.getAttribute('minlength');
+  }
   if (texto.length < minimo) {
     const span = document.createElement('span');
     span.textContent = `El campo ${campo.getAttribute('id')} debe tener minimo ${minimo} caracteres`
@@ -177,12 +184,15 @@ export const contarCamposFormulario=(formulario)=>{
 }
 
 export const validar = (event) => {
+  
   event.preventDefault();
   
   const campos = [...event.target].filter((item) => item.hasAttribute('required'));
   const inputText = campos.filter((campo) => campo.tagName == 'INPUT' && campo.getAttribute('type') == 'text')
   const inputContrasenia=campos.filter((campo) => campo.tagName == 'INPUT' && campo.getAttribute('type') == 'password')
   const selects = campos.filter((campo) => campo.tagName == 'SELECT');
+  const textAreas = campos.filter((campo) => campo.tagName == 'TEXTAREA');
+  
   
   let info = {};
   if (inputText.length > 0) {
@@ -220,6 +230,14 @@ export const validar = (event) => {
         info[select.getAttribute('id')] = select.value;
       }
     });
+  }
+
+  if(textAreas.length > 0){
+    textAreas.forEach(textArea => {
+      if (validarMinimo(textArea)) {
+        info[textArea.getAttribute('id')] = textArea.value;
+      }
+    })
   }
   return info;
 }
