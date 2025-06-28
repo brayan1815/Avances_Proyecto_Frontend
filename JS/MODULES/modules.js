@@ -159,15 +159,18 @@ export const validarCorreo=(campo)=>{
 }
 
 export const validarImagen=(campo,label)=>{
-  if(campo.files.length<1){
-    const mensaje=document.createElement('span');
-    mensaje.textContent="Debe seleccionar una imagen";
-
-    if(label.nextElementSibling)label.nextElementSibling.remove();
-    label.classList.add('border--punteado--red')
-    label.insertAdjacentElement('afterend',mensaje);
-    return false;
-  } else {
+  if(campo.hasAttribute('required')){
+    if(campo.files.length<1){
+      const mensaje=document.createElement('span');
+      mensaje.textContent="Debe seleccionar una imagen";
+  
+      if(label.nextElementSibling)label.nextElementSibling.remove();
+      label.classList.add('border--punteado--red')
+      label.insertAdjacentElement('afterend',mensaje);
+      return false;
+    } 
+  }
+  else {
     if (label.nextElementSibling) label.nextElementSibling.remove();
     label.classList.remove('border--punteado--red')
     const mensaje = document.createElement('span');
@@ -187,16 +190,66 @@ export const crearCardsProductos=async (productos,contenedor)=>{
 
   for (const producto of productos) {
     const imagen= await get(`imagenes/${producto.id_imagen}`);
+    // const urlImagen=`http://localhost:8080/APIproyecto/imagenes/${imagen.ruta}`;
     const card=document.createElement('div');
+    card.setAttribute('id',producto.id)
     card.classList.add('card');
   
     const imagenCard=document.createElement('img');
-    imagenCard.setAttribute('src',imagen.ruta); 
+    imagenCard.setAttribute('src', `http://localhost:8080/APIproyecto/${imagen.ruta}`);
     imagenCard.classList.add('card__imagen');
+    card.append(imagenCard)
+
+    const lineaSeparadora=document.createElement('hr');
+    lineaSeparadora.classList.add('card__linea');
+    card.append(lineaSeparadora);
+
+    const cardNombre=document.createElement('h3');
+    cardNombre.classList.add('card__nombre');
+    cardNombre.textContent=producto.nombre;
+    card.append(cardNombre);
+
+    const cardDescripcion=document.createElement('p');
+    cardDescripcion.classList.add('card__descripcion');
+    cardDescripcion.textContent=producto.descripcion;
+    card.append(cardDescripcion);
+
+    const cardPrecio=document.createElement('h3');
+    cardPrecio.classList.add('card__precio');
+    cardPrecio.textContent=`$${producto.precio}`;
+    card.append(cardPrecio);
+
+    const cantRest=document.createElement('h3');
+    cantRest.classList.add('card__cantidades');
+    cantRest.textContent=`Cantidades restantes: ${producto.cantidades_disponibles}`;
+    card.append(cantRest);
+
+    const contenedorBotones=document.createElement('div');
+    contenedorBotones.classList.add('card__botones');
+
+    const botonEditar=document.createElement('button');
+    botonEditar.setAttribute('id',producto.id);
+    botonEditar.classList.add('card__boton','editar');
+
+    const iconoEditar=document.createElement('i');
+    iconoEditar.classList.add('bi','bi-pencil-square');
+    // iconoEditar.classList.add('bi','bi-pencil-square')
+    botonEditar.append(iconoEditar);
+    contenedorBotones.append(botonEditar);
+
+    const botonEliminar=document.createElement('button');
+    botonEliminar.setAttribute('id',producto.id)
+    botonEliminar.classList.add('card__boton','eliminar');
+
+    const iconoEliminar=document.createElement('i');
+    iconoEliminar.classList.add('bi','bi-trash-fill');
+    botonEliminar.append(iconoEliminar);
+    contenedorBotones.append(botonEliminar);
+
+    card.append(contenedorBotones);
+
+    contenedor.append(card);
   }
-
-
-
 }
 
 export const validar = (event) => {
