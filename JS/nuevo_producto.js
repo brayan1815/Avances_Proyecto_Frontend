@@ -1,9 +1,11 @@
-import { post_imgs } from "../api.js";
-import { contarCamposFormulario, limpiar, validar, validarImagen, validarMinimo } from "./MODULES/modules.js";
+import { post, post_imgs } from "../api.js";
+import { contarCamposFormulario, limpiar, validar, validarImagen, validarMaximo, validarMinimo, validarNumeros } from "./MODULES/modules.js";
 
 const formulario = document.querySelector('form');
 const nombreprod = document.querySelector('#nombre')
 const descripcionProd=document.querySelector('#descripcion')
+const precio_prod=document.querySelector('#precio');
+const canti_disponi=document.querySelector('#cantidades_disponibles');
 const inputImg=document.querySelector('#seleccionarImagen');
 const labelImagen = document.querySelector('.formulario__insertarImagen')
 const camposForm = document.querySelectorAll('input');
@@ -31,8 +33,31 @@ formulario.addEventListener('submit',async(event)=>{
     formData.append('archivo',imagen)
     const respuesta = await post_imgs(formData);
     const response = await respuesta.json();
+    // console.log(response.id_imagen);
+    info['id_imagen']=response.id_imagen
+    
     if (Object.keys(info).length == cantCamposFormulario) {
-      console.log(info);
+      info['cantidades_disponibles']=Number(info['cantidades_disponibles'])
+      info['precio']=Number(info.precio)
+
+      info['id_estado_producto']=1;
+
+      if(info['cantidades_disponibles']==0) info['id_estado_producto']=2
+
+      const respuesta=await post('productos',info);
+
+      if(respuesta.ok){
+        alert('El producto se creo correctamente');
+
+        inputImg.value='';
+        labelImagen.nextElementSibling.remove();
+        nombreprod.value='';
+        descripcionProd.value='';
+        precio_prod.value="";
+        canti_disponi.value="";
+      }
+      
+      
     }
   }
 })
@@ -41,8 +66,13 @@ nombreprod.addEventListener('blur', (event) => { if (validarMinimo(event.target)
 nombreprod.addEventListener('keydown', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
 
 descripcionProd.addEventListener('blur',(event)=>{if(validarMinimo(event.target)) limpiar(event.target)})
+descripcionProd.addEventListener('keydown',(event)=>{if(validarMinimo(event.target)) limpiar(event.target)})
 
+precio_prod.addEventListener('keydown',validarNumeros);
+precio_prod.addEventListener('keydown',validarMaximo);
+precio_prod.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)});
+precio_prod.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)});
 
-
-
-
+canti_disponi.addEventListener('keydown',validarNumeros);
+canti_disponi.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)});
+canti_disponi.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)});

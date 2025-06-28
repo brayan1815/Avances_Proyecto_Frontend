@@ -183,6 +183,22 @@ export const contarCamposFormulario=(formulario)=>{
   return campos.length;
 }
 
+export const crearCardsProductos=async (productos,contenedor)=>{
+
+  for (const producto of productos) {
+    const imagen= await get(`imagenes/${producto.id_imagen}`);
+    const card=document.createElement('div');
+    card.classList.add('card');
+  
+    const imagenCard=document.createElement('img');
+    imagenCard.setAttribute('src',imagen.ruta); 
+    imagenCard.classList.add('card__imagen');
+  }
+
+
+
+}
+
 export const validar = (event) => {
   
   event.preventDefault();
