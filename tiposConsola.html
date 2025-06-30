@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tipos de consolas</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <div class="estructura">
+    <header class="encabezado">
+      <div class="logoEncabezado">
+        <h2 class="logoEncabezado__texto">Game Time</h2>
+        <img src="./IMG/logo_xbox.png" alt="logo_xbox" class="logoEncabezado__imagen">
+      </div>
+      <div class="encabezadoPerfil">
+        <h2 class="encabezadoPerfil__nombre"></h2>
+        <i class="bi bi-person-fill encabezadoPerfil__icono"></i>
+      </div>
+    </header>
+    <aside class="sidebar">
+      <div class="sidebar__boton botonSidebar">
+        <i class="bi bi-calendar-event-fill botonSidebar__icono"></i>
+        <a href="reservas.html" class="botonSidebar__texto">Reservas</a>
+      </div>
+      <div class="sidebar__boton botonSidebar">
+        <i class="bi bi-cookie botonSidebar__icono"></i>
+        <a href="Productos.html" class="botonSidebar__texto">Prdoductos</a>
+      </div>
+      <div class="sidebar__boton botonSidebar">
+        <i class="bi bi-controller botonSidebar__icono"></i>
+        <a href="consolas.html" class="botonSidebar__texto">Consolas</a>
+      </div>
+      <div class="sidebar__boton botonSidebar">
+        <i class="bi bi-people-fill botonSidebar__icono"></i>
+        <a href="usuarios.html" class="botonSidebar__texto">Usuarios</a>
+      </div>
+    </aside>
+    <main class="contenido">
+      <div class="botonesSuperiores">
+        <a href="nueva_reserva.html" class="contenido__Boton"><i class="bi bi-plus-circle-fill"></i>Nuevo Tipo</a>
+        <!-- <div class="infoEstadoReserva">
+          <div class="infoEstado"><h3>Pendiente</h3></div>
+          <div class="infoEstado infoEstado--enProceso"><h3>En Proceso</h3></div>
+          <div class="infoEstado infoEstado--terminado"><h3>Terminado</h3></div>
+        </div> -->
+      </div>
+      <div class="contenido__contenedor">
+        <!-- <table class="tabla">
+          <thead class="tabla__encabezado">
+            <tr>
+              <th>Fecha</th>
+              <th>Documento</th>
+              <th>Usuario</th>
+              <th>Hora Inicio</th>
+              <th>Hora Fin</th>
+              <th>Horas</th>
+              <th>Consola</th>
+            </tr>
+          </thead>
+          <tbody  class="tabla__cuerpo">
+            <tr class="tabla__fila">
+              <td class="tabla__campo"> 04-05-2025</td>
+              <td class="tabla__campo">1123965872</td>
+              <td class="tabla__campo">Brayan</td>
+              <td class="tabla__campo">7:00 am</td>
+              <td class="tabla__campo">8:00 am</td>
+              <td class="tabla__campo">1</td>
+              <td class="tabla__campo">Xbox 360</td>
+              <td class="tabla__campo">
+                <a href="info_reserva.html" class="registro__boton"><i class="bi bi-info-circle"></i></a>
+              </td>
+            </tr>
+            <tr class="tabla__fila">
+              <td class="tabla__campo tabla__campo--bordeRed"> 04-05-2025</td>
+              <td class="tabla__campo tabla__campo--bordeRed">1123965872</td>
+              <td class="tabla__campo tabla__campo--bordeRed">Brayan</td>
+              <td class="tabla__campo tabla__campo--bordeRed">7:00 am</td>
+              <td class="tabla__campo tabla__campo--bordeRed">8:00 am</td>
+              <td class="tabla__campo tabla__campo--bordeRed">1</td>
+              <td class="tabla__campo tabla__campo--bordeRed">Xbox 360</td>
+              <td class="tabla__campo tabla__campo--bordeRed">
+                <a href="info_reserva.html" class="registro__boton"><i class="bi bi-info-circle"></i></a>
+              </td>
+            </tr>
+            <tr class="tabla__fila">
+              <td class="tabla__campo tabla__campo--bordeBlanco"> 04-05-2025</td>
+              <td class="tabla__campo tabla__campo--bordeBlanco">1123965872</td>
+              <td class="tabla__campo tabla__campo--bordeBlanco">Brayan</td>
+              <td class="tabla__campo tabla__campo--bordeBlanco">7:00 am</td>
+              <td class="tabla__campo tabla__campo--bordeBlanco">8:00 am</td>
+              <td class="tabla__campo tabla__campo--bordeBlanco">1</td>
+              <td class="tabla__campo tabla__campo--bordeBlanco">Xbox 360</td>
+              <td class="tabla__campo tabla__campo--bordeBlanco">
+                <a href="info_reserva.html" class="registro__boton"><i class="bi bi-info-circle"></i></a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table> -->
+      </div>
+    </main>
+  </div>
+</body>
+<script type="module" src="./JS/tiposConsolas.js"></script>
+</html>

@@ -45,7 +45,8 @@ button i {
     border: solid 2px #4DD42E;
 }
 
-.formulario--NuevoProducto{
+.formulario--NuevoProducto,
+.formulario--NuevoTipo{
   width: 50%;
   margin: 0px 0px;
   height: 100%;
@@ -631,6 +632,13 @@ span{
   margin: 0 13px;
   font-weight: 600;
   height: 56px;
+  overflow-y: scroll;
+  word-break: break-all;
+}
+
+.card__descripcion--consola{
+  height: 70px;
+  
 }
 
 .card__precio,

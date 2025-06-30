@@ -22,7 +22,7 @@ export const crearTabla=(encabezados,contenedor)=>{
     contenedor.append(tabla)
 }
 
-export const crearFila=(info,id_usuario,contenedor)=>{
+export const crearFila=(info,id,contenedor)=>{
     const fila=document.createElement('tr');
     fila.classList.add('tabla__fila');
 
@@ -50,11 +50,11 @@ export const crearFila=(info,id_usuario,contenedor)=>{
 
     const botonEditar=document.createElement('button');
     botonEditar.classList.add('registro__boton','registro__boton--editar')
-    botonEditar.setAttribute('id',id_usuario);
+    botonEditar.setAttribute('id',id);
 
     const iconoEditar=document.createElement('i');
   iconoEditar.classList.add('bi', 'bi-pencil-square');
-  botonEliminar.setAttribute('id',id_usuario)
+  botonEliminar.setAttribute('id',id)
 
     botonEditar.append(iconoEditar);
     contenedorBotones.append(botonEditar);
