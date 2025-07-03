@@ -12,6 +12,7 @@ const camposForm = document.querySelectorAll('input');
 
 camposForm.forEach((campo) => {
   campo.addEventListener('focus', () => {
+    
     validarImagen(inputImg,labelImagen)
   })
 })
@@ -34,7 +35,8 @@ formulario.addEventListener('submit',async(event)=>{
     const respuesta = await post_imgs(formData);
     const response = await respuesta.json();
     // console.log(response.id_imagen);
-    info['id_imagen']=response.id_imagen
+    info['id_imagen'] = response.id_imagen
+  
     
     if (Object.keys(info).length == cantCamposFormulario) {
       info['cantidades_disponibles']=Number(info['cantidades_disponibles'])

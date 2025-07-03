@@ -158,28 +158,36 @@ export const validarCorreo=(campo)=>{
   }
 }
 
-export const validarImagen=(campo,label)=>{
-  if(campo.hasAttribute('required')){
-    if(campo.files.length<1){
-      const mensaje=document.createElement('span');
-      mensaje.textContent="Debe seleccionar una imagen";
-  
-      if(label.nextElementSibling)label.nextElementSibling.remove();
-      label.classList.add('border--punteado--red')
-      label.insertAdjacentElement('afterend',mensaje);
+export const validarImagen = (campo, label) => {
+  const archivo = campo.files[0]; 
+
+  if (campo.hasAttribute('required')) {
+    if (!archivo) {
+      const mensaje = document.createElement('span');
+      mensaje.textContent = "Debe seleccionar una imagen";
+
+      if (label.nextElementSibling) label.nextElementSibling.remove();
+      label.classList.add('border--punteado--red');
+      label.insertAdjacentElement('afterend', mensaje);
       return false;
-    } 
+    }
   }
-  else {
+
+  if (archivo) {
     if (label.nextElementSibling) label.nextElementSibling.remove();
-    label.classList.remove('border--punteado--red')
+    label.classList.remove('border--punteado--red');
+
     const mensaje = document.createElement('span');
-    mensaje.textContent = campo.files[0].name;
-    mensaje.classList.add('span--verde')
-    label.insertAdjacentElement('afterend',mensaje)
-    return campo.files[0];
+    mensaje.textContent = archivo.name;
+    mensaje.classList.add('span--verde');
+    label.insertAdjacentElement('afterend', mensaje);
+
+    return archivo;
   }
+
+  return null;
 }
+
 
 export const contarCamposFormulario=(formulario)=>{
   const campos=[...formulario].filter((campo)=>campo.hasAttribute('required'));
@@ -250,6 +258,68 @@ export const crearCardsProductos=async (productos,contenedor)=>{
 
     contenedor.append(card);
   }
+}
+
+export const cargarCardsConsolas = async (consolas, contenedor) => {
+  for (const consola of consolas) {
+    
+    const card = document.createElement('div');
+    card.classList.add('card', 'card--horizontal');
+  
+    const imagen = await get(`imagenes/${consola.id_imagen}`);
+  
+    const img_card = document.createElement('img');
+    img_card.setAttribute('src', `http://localhost:8080/APIproyecto/${imagen.ruta}`);
+    img_card.classList.add('card__imagen');
+    card.append(img_card)
+
+    const cardInfo = document.createElement('div');
+    cardInfo.classList.add('cardInfo');
+
+    const cardName = document.createElement('h3');
+    cardName.classList.add('card__nombre');
+    cardName.textContent = consola.nombre;
+    cardInfo.append(cardName);
+
+    const cardDescripcion = document.createElement('p');
+    cardDescripcion.classList.add('card__descripcion', 'card__descripcion--consola');
+    cardDescripcion.textContent = consola.descripcion;
+    cardInfo.append(cardDescripcion)
+
+    const tipo=await get(`tipos/${consola.id_tipo}`)
+
+    const cardPrecio = document.createElement('h3');
+    cardPrecio.classList.add('card__precio');
+    cardPrecio.textContent = `$${tipo.precio_hora}`;
+    cardInfo.append(cardPrecio);
+
+    const contenedorBotones=document.createElement('div');
+    contenedorBotones.classList.add('card__botones');
+
+    const botonEditar=document.createElement('button');
+    botonEditar.setAttribute('id',producto.id);
+    botonEditar.classList.add('card__boton','editar');
+
+    const iconoEditar=document.createElement('i');
+    iconoEditar.classList.add('bi','bi-pencil-square');
+    // iconoEditar.classList.add('bi','bi-pencil-square')
+    botonEditar.append(iconoEditar);
+    contenedorBotones.append(botonEditar);
+
+    const botonEliminar=document.createElement('button');
+    botonEliminar.setAttribute('id',producto.id)
+    botonEliminar.classList.add('card__boton','eliminar');
+
+    const iconoEliminar=document.createElement('i');
+    iconoEliminar.classList.add('bi','bi-trash-fill');
+    botonEliminar.append(iconoEliminar);
+    contenedorBotones.append(botonEliminar);
+
+    cardInfo.append(contenedorBotones);
+    card.append(cardInfo)
+    contenedor.append(card)
+  }
+
 }
 
 export const validar = (event) => {
