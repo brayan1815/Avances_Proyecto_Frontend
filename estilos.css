@@ -46,6 +46,7 @@ button i {
 }
 
 .formulario--NuevoProducto,
+.formulario--NuevaConsola,
 .formulario--NuevoTipo{
   width: 50%;
   margin: 0px 0px;
@@ -615,6 +616,7 @@ span{
 .card--horizontal{
   flex-direction: row;
   height: 190px;
+  padding: 10px;
 }
 
 .card__linea{
@@ -638,7 +640,7 @@ span{
 
 .card__descripcion--consola{
   height: 70px;
-  
+  align-content: center;
 }
 
 .card__precio,

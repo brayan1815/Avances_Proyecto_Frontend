@@ -297,7 +297,7 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     contenedorBotones.classList.add('card__botones');
 
     const botonEditar=document.createElement('button');
-    botonEditar.setAttribute('id',producto.id);
+    botonEditar.setAttribute('id',consola.id);
     botonEditar.classList.add('card__boton','editar');
 
     const iconoEditar=document.createElement('i');
@@ -307,7 +307,7 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     contenedorBotones.append(botonEditar);
 
     const botonEliminar=document.createElement('button');
-    botonEliminar.setAttribute('id',producto.id)
+    botonEliminar.setAttribute('id',consola.id)
     botonEliminar.classList.add('card__boton','eliminar');
 
     const iconoEliminar=document.createElement('i');
@@ -320,6 +320,18 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     contenedor.append(card)
   }
 
+}
+
+export const cargarSelectTiposConsols=async(select)=>{
+  
+  const tipos=await get('tipos');
+  
+  tipos.forEach(tipo => {
+    const option=document.createElement('option');
+    option.setAttribute('value',tipo.id);
+    option.textContent=tipo.tipo;
+    select.append(option);
+  });
 }
 
 export const validar = (event) => {
@@ -363,7 +375,7 @@ export const validar = (event) => {
       if (select.value == 0) {
         if (select.nextElementSibling)nextElementSibling.remove();
         const mensaje = document.createElement('span');
-        mensaje.textContent = "Debe seleccionar un rol de usuario";
+        mensaje.textContent = "Debe seleccionar un elemento";
         select.insertAdjacentElement('afterend',mensaje)
       } else {
         info[select.getAttribute('id')] = select.value;
