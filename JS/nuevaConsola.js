@@ -33,7 +33,7 @@ formulario.addEventListener('submit',async (event)=>{
             
             
             const respuesta=await post('consolas',info);
-            console.log(respuesta);
+          if (respuesta.ok) alert('La consola se creo correctamente');
         }
 
     }
