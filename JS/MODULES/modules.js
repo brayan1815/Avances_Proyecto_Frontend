@@ -322,6 +322,54 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
 
 }
 
+export const cargarCardsConsolasReservar=async(consolas,contenedor)=>{
+  for (const consola of consolas) {
+    
+    const card = document.createElement('div');
+    card.classList.add('card', 'card--horizontal');
+  
+    const imagen = await get(`imagenes/${consola.id_imagen}`);
+  
+    const img_card = document.createElement('img');
+    img_card.setAttribute('src', `http://localhost:8080/APIproyecto/${imagen.ruta}`);
+    img_card.classList.add('card__imagen');
+    card.append(img_card)
+
+    const cardInfo = document.createElement('div');
+    cardInfo.classList.add('cardInfo');
+
+    const cardName = document.createElement('h3');
+    cardName.classList.add('card__nombre');
+    cardName.textContent = consola.nombre;
+    cardInfo.append(cardName);
+
+    const cardDescripcion = document.createElement('p');
+    cardDescripcion.classList.add('card__descripcion', 'card__descripcion--consola');
+    cardDescripcion.textContent = consola.descripcion;
+    cardInfo.append(cardDescripcion)
+
+    const tipo=await get(`tipos/${consola.id_tipo}`)
+
+    const cardPrecio = document.createElement('h3');
+    cardPrecio.classList.add('card__precio');
+    cardPrecio.textContent = `$${tipo.precio_hora}`;
+    cardInfo.append(cardPrecio);
+
+    const contenedorBotones=document.createElement('div');
+    contenedorBotones.classList.add('card__botones');
+
+    const botonReservar=document.createElement('button');
+    botonReservar.textContent="Reservar";
+    botonReservar.id=consola.id;
+    botonReservar.classList.add('botonReservar')
+    contenedorBotones.append(botonReservar)
+
+    cardInfo.append(contenedorBotones);
+    card.append(cardInfo)
+    contenedor.append(card)
+  }
+}
+
 export const cargarSelectTiposConsols=async(select)=>{
   
   const tipos=await get('tipos');
