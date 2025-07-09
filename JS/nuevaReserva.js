@@ -1,5 +1,5 @@
-import { get } from "../api.js";
-import { cargarCardsConsolasReservar, contarCamposFormulario, formatearFecha, validar } from "./MODULES/modules.js";
+import { get, post } from "../api.js";
+import { cargarCardsConsolasReservar, contarCamposFormulario, formatearFecha, limpiar, validar, validarMaximo, validarMinimo } from "./MODULES/modules.js";
 
 const contenedor=document.querySelector('.cards--consolas');
 const calendariOculto=document.querySelector('.calendariOculto');
@@ -9,7 +9,8 @@ const formHoraInicio=document.querySelector('#hora_inicio');
 const formHoraFinalizacion=document.querySelector('#hora_finalizacion');
 const formulario=document.querySelector('form');
 const campoIdConsola=document.querySelector('#id_consola');
-const botonCancel=document.querySelector('.formulario__boton--cancelar');
+const botonCancel = document.querySelector('.formulario__boton--cancelar');
+const campoDocumento = document.querySelector('#documento');
 
 
 const consolas=await get('consolas');
@@ -39,7 +40,7 @@ const abrirCalendario=()=>{
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek'
+      right: ''
     },
     allDaySlot: false, // ❌ quitar la opción "todo el día"
     slotMinTime: '08:00:00', // 🕗 abre desde las 8 AM
@@ -86,6 +87,10 @@ window.addEventListener('click',(event)=>{
 
 const cantCamporFormulario=contarCamposFormulario(formulario);
 
+function aFormatoISO(fecha) {
+  return fecha.replace(" ", "T");
+}
+
 formulario.addEventListener('submit',async(event)=>{
   const info=validar(event);
 
@@ -101,8 +106,18 @@ formulario.addEventListener('submit',async(event)=>{
       else if(horaActual>=horaInicio && horaActual<horaFin)info['id_estado_reserva']=2
       else if(horaActual>=horaFin)info['id_estado_reserva']=3
       
+      info['id_usuario'] = usuario.id;
+      delete info.documento;
+
+      info['id_consola'] = Number(info['id_consola'])
+      info['hora_inicio']=aFormatoISO(info['hora_inicio']); 
+      info['hora_finalizacion']=aFormatoISO(info['hora_finalizacion']); 
+      
       console.log(info);
       
+      const respuesta = await post('reservas', info);
+      if (respuesta.ok) alert("La reserva se realizo correctamente");
+      else alert("No se pudo realizar la reserva");
     }else{
       alert("El usuario no ha sido encontrado")
     }
@@ -113,6 +128,10 @@ formulario.addEventListener('submit',async(event)=>{
 
 console.log(botonCancel);
 
+
+campoDocumento.addEventListener('keydown', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
+campoDocumento.addEventListener('blur', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
+campoDocumento.addEventListener('keydown',validarMaximo())
 
 botonCancel.addEventListener('click',()=>{
   contenedorformularioNuevaReserva.classList.remove('displayFlex');

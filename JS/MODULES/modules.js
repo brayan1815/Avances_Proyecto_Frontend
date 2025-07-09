@@ -136,7 +136,8 @@ export const validarNumeros=(event)=>{
   }
 }
 
-export const validarMaximo=(event)=>{
+export const
+  validarMaximo = (event) => {
   const maximo=event.target.getAttribute('max');
 
   if(event.target.value.length>=maximo && event.key!='Backspace')event.preventDefault();
