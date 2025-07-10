@@ -1,5 +1,5 @@
 import { get, post } from "../api.js";
-import { cargarCardsConsolasReservar, contarCamposFormulario, formatearFecha, limpiar, validar, validarMaximo, validarMinimo } from "./MODULES/modules.js";
+import { cargarCardsConsolasReservar, contarCamposFormulario, formatearFecha, limpiar, validar, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "./MODULES/modules.js";
 
 const contenedor=document.querySelector('.cards--consolas');
 const calendariOculto=document.querySelector('.calendariOculto');
@@ -21,8 +21,12 @@ const mostrarFomrularioNuevaReserva=(info)=>{
   contenedorformularioNuevaReserva.classList.add('displayFlex');
   formHoraInicio.value=formatearFecha(info.startStr);
   formHoraFinalizacion.value=formatearFecha(info.endStr);
-  // console.log(info.startStr);
+
   
+}
+
+const cerrarFormularioNuevaReserva=()=>{
+  contenedorformularioNuevaReserva.classList.remove('displayFlex')
 }
 
 const abrirCalendario=async(id_consola)=>{
@@ -91,7 +95,6 @@ const cerrarCalencuario=()=>{
 }
 
 window.addEventListener('click',(event)=>{
-  console.log(event.target);
   
     const clase=event.target.getAttribute('class');
     if(clase=='botonReservar'){
@@ -130,11 +133,16 @@ formulario.addEventListener('submit',async(event)=>{
       info['hora_inicio']=aFormatoISO(info['hora_inicio']); 
       info['hora_finalizacion']=aFormatoISO(info['hora_finalizacion']); 
       
-      console.log(info);
-      
       const respuesta = await post('reservas', info);
       if (respuesta.ok){
-        alert("La reserva se realizo correctamente");
+        campoDocumento.value="";
+        cerrarFormularioNuevaReserva();
+        Swal.fire({
+          title: 'Exito',
+          text: 'La reserva se realizo correctamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        })
         cerrarCalencuario();
         abrirCalendario(info['id_consola'])
       } 
@@ -147,9 +155,7 @@ formulario.addEventListener('submit',async(event)=>{
   }
 });
 
-console.log(botonCancel);
-
-
+campoDocumento.addEventListener('keydown',validarNumeros)
 campoDocumento.addEventListener('keydown', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
 campoDocumento.addEventListener('blur', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
 campoDocumento.addEventListener('keydown',validarMaximo)

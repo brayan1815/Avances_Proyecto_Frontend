@@ -65,12 +65,16 @@ export const crearFila=(info,id,contenedor)=>{
     contenedor.append(fila);
 }
 
-function quitarFOmatoIso(fecha) {
+export function quitarFOmatoIso(fecha) {
   return fecha.replace("T", " ");
 }
 
 export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   const fila=document.createElement('tr');
+
+  fila.setAttribute('id',id);
+
+  fila.classList.add('tabla__fila')
 
   if(info.id_estado_reserva==1)fila.classList.add('tabla__fila--blanco');
   else if(info.id_estado_reserva==2)fila.classList.add('tabla__fila--verde');
@@ -101,7 +105,7 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   Consola.textContent=consola['nombre'];
 
   const bot=document.createElement('button');
-  bot.classList.add('registro__boton');
+  bot.classList.add('registro__boton','Info');
   bot.setAttribute('id',id)
   const iconBot=document.createElement('i');
   iconBot.classList.add('bi','bi-info-circle');
@@ -183,7 +187,9 @@ export const validarNumeros=(event)=>{
     const numeros=/[0-9]/;
     if(!numeros.test(tecla) && tecla!="Backspace"){
     event.preventDefault();
+    return false
   }
+  return true
 }
 
 export const

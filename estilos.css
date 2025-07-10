@@ -422,19 +422,27 @@ span{
   color: #4DD42E;
 }
 
+.tabla__fila--blanco{
+  background-color:#ffffff75;
+  transition: 0.3s;
+}
+
 .tabla__fila--verde{
   background-color:#4cd42e75;
 }
+
 .tabla__fila--rojo{
   background-color:#d42e2e75;
 }
-.tabla__fila--blanco{
-  background-color:#ffffff75;
-}
+
 
 .tabla__campo{
   text-align: center;
   padding:2vh 0;
+}
+
+.tabla__campo--bodeVerde{
+  border: solid 1px #4DD42E;
 }
 
 /* .tabla__campo--bordeRed{
@@ -635,9 +643,15 @@ span{
   align-self: center;
  }
 
+ 
  .infoReserva__texto{
-  color: #4DD42E;
- }
+   color: #4DD42E;
+  }
+  
+  .horaInicioFin{
+  font-size: 1vw;
+   color: white;
+  }
 
  .productosReserva{
   grid-area: productos_reserva;
