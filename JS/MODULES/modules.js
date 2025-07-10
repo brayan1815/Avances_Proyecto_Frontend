@@ -65,6 +65,56 @@ export const crearFila=(info,id,contenedor)=>{
     contenedor.append(fila);
 }
 
+function quitarFOmatoIso(fecha) {
+  return fecha.replace("T", " ");
+}
+
+export const crearFilaTablaReservas=async(info,id,contenedor)=>{
+  const fila=document.createElement('tr');
+
+  if(info.id_estado_reserva==1)fila.classList.add('tabla__fila--blanco');
+  else if(info.id_estado_reserva==2)fila.classList.add('tabla__fila--verde');
+  else if(info.id_estado_reserva==3)fila.classList.add('tabla__fila--rojo');
+
+  const usuario=await get(`usuarios/${info.id_usuario}`);
+  const consola=await get(`consolas/${info.id_consola}`);
+
+  const campoDocumento=document.createElement('td');
+  const campoUsuario=document.createElement('td');
+  const HoraInicio=document.createElement('td');
+  const HoraFin=document.createElement('td');
+  const Consola=document.createElement('td');
+  const Boton=document.createElement('td');
+
+  campoDocumento.classList.add('tabla__campo');
+  campoUsuario.classList.add('tabla__campo');
+  HoraInicio.classList.add('tabla__campo');
+  HoraFin.classList.add('tabla__campo');
+  Consola.classList.add('tabla__campo');
+  Boton.classList.add('tabla__campo');
+
+
+  campoDocumento.textContent=usuario.documento;
+  campoUsuario.textContent=usuario.nombre;
+  HoraInicio.textContent=quitarFOmatoIso(info.hora_inicio);
+  HoraFin.textContent=quitarFOmatoIso(info.hora_finalizacion);
+  Consola.textContent=consola['nombre'];
+
+  const bot=document.createElement('button');
+  bot.classList.add('registro__boton');
+  bot.setAttribute('id',id)
+  const iconBot=document.createElement('i');
+  iconBot.classList.add('bi','bi-info-circle');
+
+  bot.append(iconBot);
+  Boton.append(bot);
+
+  fila.append(campoDocumento,campoUsuario,HoraInicio,HoraFin,Consola,Boton);
+  
+  contenedor.append(fila)
+  
+}
+
 export const limpiar=(campo)=>{
   if(campo.nextElementSibling)campo.nextElementSibling.remove();
   campo.classList.remove('border--red');

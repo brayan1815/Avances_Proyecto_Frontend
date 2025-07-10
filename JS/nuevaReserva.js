@@ -25,7 +25,21 @@ const mostrarFomrularioNuevaReserva=(info)=>{
   
 }
 
-const abrirCalendario=()=>{
+const abrirCalendario=async(id_consola)=>{
+
+    const reservas=await get(`reservas/consola/${id_consola}`);
+    
+    let eventos=[];
+
+    if(reservas.length>0){
+      eventos = reservas.map(reserva => ({
+        title: `Reservado`, 
+        start: reserva.hora_inicio,
+        end: reserva.hora_finalizacion,
+        color: '#4DD42E' 
+      }));
+    }
+
     calendariOculto.classList.add('displayBlock');
     fondoOscuro.classList.add('displayBlock')
 
@@ -55,7 +69,8 @@ const abrirCalendario=()=>{
     validRange: {
     start: new Date() // ← aquí se evita mostrar fechas anteriores a hoy
   },
-    events:[],
+    events:eventos,
+    selectOverlap: false,
     select:(info)=>{
       const horaActual=new Date();
       const horaInicio=new Date(info.startStr)
@@ -76,11 +91,13 @@ const cerrarCalencuario=()=>{
 }
 
 window.addEventListener('click',(event)=>{
+  console.log(event.target);
+  
     const clase=event.target.getAttribute('class');
     if(clase=='botonReservar'){
       const id_consola=event.target.getAttribute('id');
       campoIdConsola.value=id_consola;
-      abrirCalendario();
+      abrirCalendario(id_consola);
     }
     else if(clase=='botonCerrarCalendario')cerrarCalencuario();
 })
@@ -116,7 +133,11 @@ formulario.addEventListener('submit',async(event)=>{
       console.log(info);
       
       const respuesta = await post('reservas', info);
-      if (respuesta.ok) alert("La reserva se realizo correctamente");
+      if (respuesta.ok){
+        alert("La reserva se realizo correctamente");
+        cerrarCalencuario();
+        abrirCalendario(info['id_consola'])
+      } 
       else alert("No se pudo realizar la reserva");
     }else{
       alert("El usuario no ha sido encontrado")
@@ -131,7 +152,7 @@ console.log(botonCancel);
 
 campoDocumento.addEventListener('keydown', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
 campoDocumento.addEventListener('blur', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
-campoDocumento.addEventListener('keydown',validarMaximo())
+campoDocumento.addEventListener('keydown',validarMaximo)
 
 botonCancel.addEventListener('click',()=>{
   contenedorformularioNuevaReserva.classList.remove('displayFlex');
