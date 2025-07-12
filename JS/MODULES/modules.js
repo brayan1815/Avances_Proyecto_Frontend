@@ -1,4 +1,4 @@
-import { get } from "../../api.js";
+import { get, post } from "../../api.js";
 
 export const crearTabla=(encabezados,contenedor)=>{
     const tabla=document.createElement('table');
@@ -451,6 +451,18 @@ export const cargarSelectTiposConsols=async(select)=>{
   });
 }
 
+export const cargarSelecrProductos=async(select)=>{
+
+  const productos=await get('productos');
+
+  productos.forEach(producto => {
+    const option=document.createElement('option');
+    option.setAttribute('value',producto.id);
+    option.textContent=producto.nombre;
+    select.append(option);
+  });
+}
+
 export const validar = (event) => {
   
   event.preventDefault();
@@ -512,15 +524,19 @@ export const validar = (event) => {
 
 export const validarIngreso = async (event) => {
   const datos = await validar(event);
-  const usuarios = await get('usuarios');
   if (Object.keys(datos).length == 2) {
-    if (validarContraseniaUsuario(datos.correo, datos.contrasenia, usuarios)!=false) {
-      alert('el usuario puede ingresar ')
-      const id=validarContraseniaUsuario(datos.correo, datos.contrasenia, usuarios);
 
-      window.location.href=`reservas.html?id=${encodeURIComponent(id)}`
-    }else{
-      alert('El correo o la contraseña ingresados no son correctos')
+    const respuesta=await post('usuarios/login',datos)
+    if(respuesta.ok){
+      const usuario=await get(`usuarios/correo/${datos.correo}`);
+      Swal.fire({
+          title: 'Exito',
+          text: `Bienvenido ${usuario.nombre}`,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        })
+        window.location.href=`reservas.html?id=${encodeURIComponent(usuario.id)}`
+      
     }
   }
 }
