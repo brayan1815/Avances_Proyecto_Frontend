@@ -5,14 +5,14 @@ const main=document.querySelector('.contenido__contenedor');
 
 
 
-const usuarios=await get('usuarios');
+const usuarios=await get('usuarios/con-rol');
 
 if(usuarios.length>0){
     crearTabla(['Documento','Nombre','Correo','Rol'],main);
     const cuerpoTabla=document.querySelector('.tabla__cuerpo');
     
     usuarios.forEach(usuario => {; 
-        crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.id_rol],usuario.id,cuerpoTabla)
+        crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla)
     });
     
     

@@ -3,7 +3,7 @@ import { cargarCardsConsolas } from "./MODULES/modules.js";
 
 const main=document.querySelector('.cards')
 
-const consolas=await get('consolas');
+const consolas=await get('consolas/con-precio');
 
 cargarCardsConsolas(consolas, main);
 

@@ -6,7 +6,7 @@ const main=document.querySelector('.contenido__contenedor');
 const barraBusqueda=document.querySelector('.buscar__input');
 
 
-const reservas=await get('reservas');
+const reservas=await get('reservas/detalle');
 
 const evaluarEstadoReserva = (hora_inicio,hora_fin) => {
   const ahora = new Date();
@@ -91,11 +91,11 @@ const buscarReservas = async (event) => {
   const texto = event.target.value.trim();
   const regex = new RegExp("^" + texto);
 
-  const reservas = await get('reservas');
+  const reservas = await get('reservas/detalle');
   cuerrpoTabla.innerHTML = "";
 
   for (const reserva of reservas) {
-    const usu = await get(`usuarios/${reserva.id_usuario}`);
+    const usu = await get(`usuarios/documento/${reserva.documentoUsuario}`);
     const documento = String(usu.documento);
 
     if (texto === "" || regex.test(documento)) {

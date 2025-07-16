@@ -28,13 +28,13 @@ export const crearFila=(info,id,contenedor)=>{
 
     info.forEach(item => {
         const campo=document.createElement('td');
-        campo.classList.add('tabla__campo');
+        campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
         campo.textContent=item;
         fila.append(campo);
     });
 
     const campo=document.createElement('td');
-    campo.classList.add('tabla__campo');
+    campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
 
     const contenedorBotones=document.createElement('div');
     contenedorBotones.classList.add('contenedorBotonesTabla');
@@ -76,12 +76,9 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
 
   fila.classList.add('tabla__fila')
 
-  if(info.id_estado_reserva==1)fila.classList.add('tabla__fila--blanco');
-  else if(info.id_estado_reserva==2)fila.classList.add('tabla__fila--verde');
-  else if(info.id_estado_reserva==3)fila.classList.add('tabla__fila--rojo');
-
-  const usuario=await get(`usuarios/${info.id_usuario}`);
-  const consola=await get(`consolas/${info.id_consola}`);
+  if(info.idEstadoReserva==1)fila.classList.add('tabla__fila--blanco');
+  else if(info.idEstadoReserva==2)fila.classList.add('tabla__fila--verde');
+  else if(info.idEstadoReserva==3)fila.classList.add('tabla__fila--rojo');
 
   const campoDocumento=document.createElement('td');
   const campoUsuario=document.createElement('td');
@@ -98,11 +95,11 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   Boton.classList.add('tabla__campo');
 
 
-  campoDocumento.textContent=usuario.documento;
-  campoUsuario.textContent=usuario.nombre;
-  HoraInicio.textContent=quitarFOmatoIso(info.hora_inicio);
-  HoraFin.textContent=quitarFOmatoIso(info.hora_finalizacion);
-  Consola.textContent=consola['nombre'];
+  campoDocumento.textContent=info.documentoUsuario;
+  campoUsuario.textContent=info.nombreUsuario;
+  HoraInicio.textContent=quitarFOmatoIso(info.horaInicio);
+  HoraFin.textContent=quitarFOmatoIso(info.horaFinalizacion);
+  Consola.textContent=info.nombreConsola;
 
   const bot=document.createElement('button');
   bot.classList.add('registro__boton','Info');
@@ -255,7 +252,6 @@ export const crearCardsProductos=async (productos,contenedor)=>{
 
   for (const producto of productos) {
     const imagen= await get(`imagenes/${producto.id_imagen}`);
-    // const urlImagen=`http://localhost:8080/APIproyecto/imagenes/${imagen.ruta}`;
     const card=document.createElement('div');
     card.setAttribute('id',producto.id)
     card.classList.add('card');
@@ -323,7 +319,7 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     const card = document.createElement('div');
     card.classList.add('card', 'card--horizontal');
   
-    const imagen = await get(`imagenes/${consola.id_imagen}`);
+    const imagen = await get(`imagenes/${consola.idImagen}`);
   
     const img_card = document.createElement('img');
     img_card.setAttribute('src', `http://localhost:8080/APIproyecto/${imagen.ruta}`);
@@ -343,11 +339,9 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     cardDescripcion.textContent = consola.descripcion;
     cardInfo.append(cardDescripcion)
 
-    const tipo=await get(`tipos/${consola.id_tipo}`)
-
     const cardPrecio = document.createElement('h3');
     cardPrecio.classList.add('card__precio');
-    cardPrecio.textContent = `$${tipo.precio_hora}`;
+    cardPrecio.textContent = `$${consola.precioHora}`;
     cardInfo.append(cardPrecio);
 
     const contenedorBotones=document.createElement('div');
