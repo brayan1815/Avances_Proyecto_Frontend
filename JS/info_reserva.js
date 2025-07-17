@@ -18,6 +18,13 @@ const btnRestar=document.querySelector('#restar');
 const subtotal=document.querySelector('#subtotal');
 const contenedorCantComprar=document.querySelector('.contenedorCampo--displayFlex');
 const contenedorTabla=document.querySelector('.contenedorTabla');
+const formularioEditarProducto=document.querySelector('.contenedorFormularioModal.editar');
+const productoFormEditar=document.querySelector('#Producto');
+const cantDisponiblesFormEditar=document.querySelector(`.contenedorFormularioModal.editar #cantDisponible`);
+const precioProdFormEditar=document.querySelector('.contenedorFormularioModal.editar #precio_unidad');
+const campoCantAComprarFormEditar=document.querySelector('.contenedorFormularioModal.editar #cantidad');
+const subtotalFormEditar=document.querySelector('.contenedorFormularioModal.editar #subtotal')
+
 
 cargarSelecrProductos(select);
 
@@ -37,8 +44,7 @@ if(consumosReserva.length>0){
 
     const cuerpoTabla=document.querySelector('.tabla__cuerpo');
     for (const consumo of consumosReserva) {
-        const produc=await get(`productos/${consumo.id_producto}`);
-        crearFila([produc.nombre,produc.precio,consumo.cantidad,consumo.subtotal],consumo.id,cuerpoTabla)
+        crearFila([consumo.nombreProducto,consumo.precioProducto,consumo.cantidad,consumo.subtotal],consumo.idConsumo,cuerpoTabla)
     }
 }else{
     const mensaje=document.createElement('span');
@@ -87,6 +93,19 @@ window.addEventListener('click', async(event)=>{
             }
         }
     }
+    if(clase=="btnSumarRestar sumar editar"){
+        // const producto=await get(`productos/${select.value}`);
+        const maximo=cantDisponiblesFormEditar.textContent;
+        cantidades=campoCantAComprarFormEditar.value;
+        if(cantidades<maximo){
+            cantidades++;
+            campoCantAComprarFormEditar.value=cantidades;
+            subtotalFormEditar.value=(cantidades*precioProdFormEditar)
+            if(cantidades>0){
+                if(contenedorCantComprar.nextElementSibling)contenedorCantComprar.nextElementSibling.remove();
+            }
+        }
+    }
     else if(clase=="btnSumarRestar restar"){
         const producto=await get(`productos/${select.value}`);
         if(cantidades>0){
@@ -95,19 +114,39 @@ window.addEventListener('click', async(event)=>{
             subtotal.value=(cantidades*producto.precio)
         }
     }
+    else if(clase=="btnSumarRestar restar editar"){
+        cantidades=campoCantAComprarFormEditar.value;
+        if(cantidades>0){
+            cantidades--;
+            campoCantAComprarFormEditar.value=cantidades;
+            subtotal.value=(cantidades*producto.precio)
+        }
+    }
     else if(clase=="formulario__boton formulario__boton--cancelar"){
         select.value=0;
         cantDisponibles.textContent=0;
         precioProducto.textContent=0;
         campoCantAComprar.value=0;
-        subtotal.textContent=0;
-        cerrarFomrularioAgregarProducto();
+        subtotal.value=0;
+        cerrarFomrulario(contenedorFomrulario);
+    }
+    else if(clase=="registro__boton registro__boton--editar"){       
+        const id=event.target.getAttribute('id');
+        
+        formularioEditarProducto.classList.add('displayFlex')
+        
+        const consumo=await get(`consumos/${id}`);
+        productoFormEditar.textContent=consumo.nombreProducto;
+        cantDisponiblesFormEditar.textContent=consumo.cantidadRestanteProducto;
+        precioProdFormEditar.textContent=consumo.precioProducto;
+        campoCantAComprarFormEditar.value=consumo.cantidad;
+        subtotalFormEditar.value=consumo.subtotal;        
     }
     
 })
 
-const cerrarFomrularioAgregarProducto=()=>{
-    contenedorFomrulario.classList.remove('displayFlex');
+const cerrarFomrulario=(contenedor)=>{
+    contenedor.classList.remove('displayFlex');
 }
 
 select.addEventListener('change',async(event)=>{
@@ -157,7 +196,7 @@ formulario.addEventListener('submit',async(event)=>{
                 precioProducto.textContent=0;
                 campoCantAComprar.value=0;
                 subtotal.textContent=0;
-                cerrarFomrularioAgregarProducto();
+                cerrarFomrulario(contenedorFomrulario);
             }
         }
     }else{

@@ -442,7 +442,7 @@ span{
   display: flex;
   border: none;
   background-color: #4DD42E;
-  width: 10vw;
+  width: 11vw;
   height:3vw;
   justify-content: space-evenly;
   align-items: center;
@@ -484,6 +484,10 @@ span{
   color: #4DD42E;
 }
 
+.tabla__fila{
+  transition: background-color 0.3s;
+}
+
 .tabla__fila--blanco{
   background-color:#ffffff75;
   transition: 0.3s;
@@ -491,10 +495,13 @@ span{
 
 .tabla__fila--verde{
   background-color:#4cd42e75;
+  transition: 0.3s;
+
 }
 
 .tabla__fila--rojo{
   background-color:#d42e2e75;
+  transition: 0.3s;
 }
 
 
@@ -642,9 +649,6 @@ span{
   left: 0;
 }
 
-.contenedorFormularioModal.editar{
-  display: flex;
-}
 
 #hora_inicio,
 #hora_finalizacion{

@@ -29,17 +29,24 @@ const actualizarEstados=async()=>{
   const reservasActualizadas = await get("reservas/estado-actualizado");
 
   const horaActual=new Date();
-
+  
+  
+  
   for (const reserva of reservasActualizadas) {
+
     const fila = document.querySelector(`.tabla__fila[id="${reserva.id}"]`);//se obtiene la fila con cla clase tabla filla y con el id de la reserva
+    console.log(fila);
+    
+    
+    
 
     if (fila) {
       
-      // fila.classList.remove("tabla__fila--verde", "tabla__fila--rojo");
+      fila.classList.remove("tabla__fila--verde", "tabla__fila--rojo","tabla__fila--blanco");
 
-      if (reserva.id_estado_reserva == 2) {
+      if (reserva.idEstadoReserva == 2) {
         fila.classList.add("tabla__fila--verde");
-      } else if (reserva.id_estado_reserva == 3) {
+      } else if (reserva.idEstadoReserva == 3) {
         fila.classList.add("tabla__fila--rojo");
       }
     }
