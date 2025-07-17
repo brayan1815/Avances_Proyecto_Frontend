@@ -8,19 +8,6 @@ const barraBusqueda=document.querySelector('.buscar__input');
 
 const reservas=await get('reservas/detalle');
 
-const evaluarEstadoReserva = (hora_inicio,hora_fin) => {
-  const ahora = new Date();
-  
-
-  if (ahora < hora_inicio) {
-    return 1;
-  } else if (ahora >= hora_inicio && ahora <= hora_fin) {
-    return 2;
-  } else {
-    return 3;
-  }
-};
-
 
 if(reservas.length>0){
     crearTabla(['Documento','Usuario','Hora Inicio','Hora Fin','Consola'],main);
@@ -38,46 +25,34 @@ const filasTabla=document.querySelectorAll('.tabla__fila');
 
 
 const actualizarEstados=async()=>{
-   console.log("ejecutando");
-  const reservas=await get('reservas');
+  console.log("actualizando estados");
+  const reservasActualizadas = await get("reservas/estado-actualizado");
 
   const horaActual=new Date();
 
-  for (const reserva of reservas) {
-    const inicio = new Date(reserva.hora_inicio);
-    const fin = new Date(reserva.hora_finalizacion);
+  for (const reserva of reservasActualizadas) {
+    const fila = document.querySelector(`.tabla__fila[id="${reserva.id}"]`);//se obtiene la fila con cla clase tabla filla y con el id de la reserva
 
-    const estado=evaluarEstadoReserva(inicio,fin)
+    if (fila) {
+      
+      // fila.classList.remove("tabla__fila--verde", "tabla__fila--rojo");
 
-    if(estado!=reserva.id_estado_reserva){
-      reserva['id_estado_reserva']=estado;
-      await put(`reservas/${reserva.id}`,reserva);
+      if (reserva.id_estado_reserva == 2) {
+        fila.classList.add("tabla__fila--verde");
+      } else if (reserva.id_estado_reserva == 3) {
+        fila.classList.add("tabla__fila--rojo");
+      }
     }
   }
 
-  for (const fila of [...filasTabla]) {
-        const id_reser=fila.getAttribute('id');
-        const reser=await get(`reservas/${id_reser}`);
-
-        if(reser.id_estado_reserva==2){
-          fila.classList.add('tabla__fila--verde');
-        }
-        else if(reser.id_estado_reserva==3){
-          fila.classList.add('tabla__fila--rojo')
-        }
-      }
-
-  const minutosActuales=horaActual.getMinutes();
+  const minutosActuales = new Date().getMinutes();
   let volvEje=0;
-  if(minutosActuales<30){
-    volvEje=30-minutosActuales;
-  }
-  else{
-    volvEje=60-minutosActuales;
-  }
-  console.log(volvEje);
-  
-  setTimeout(actualizarEstados,(volvEje*60000));
+  if(minutosActuales<30)volvEje=30-minutosActuales;
+  else volvEje=60-minutosActuales;
+
+  console.log("Se volvera a ejecutar en: "+volvEje);
+
+  setTimeout(actualizarEstados, volvEje * 60000)
 }
 actualizarEstados();
 

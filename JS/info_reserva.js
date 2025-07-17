@@ -7,6 +7,7 @@ const horaInicioFin=document.querySelector('.horaInicioFin');
 const cons=document.querySelector('.consola');
 const precHor=document.querySelector('.precioHora');
 const botonAgregarProducto=document.querySelector('.boton__tabla');
+const botonCobrar=document.querySelector('.contenido__Boton--cobrar')
 const select=document.querySelector('#id_producto');
 const formulario=document.querySelector('form');
 const campoCantAComprar=document.querySelector('#cantidad');
@@ -23,6 +24,7 @@ cargarSelecrProductos(select);
 
 const params = new URLSearchParams(window.location.search);
 const id_reserva = params.get("id");
+botonCobrar.setAttribute('id',id_reserva);
 
 const consumosReserva=await get(`consumos/reserva/${id_reserva}`);
 const reserva=await get(`reservas/${id_reserva}`);
@@ -45,7 +47,13 @@ if(consumosReserva.length>0){
     contenedorTabla.append(mensaje)
 }
 
+botonCobrar.disabled=false;
 botonAgregarProducto.disabled=false;
+
+if(reserva.id_estado_reserva==1 || reserva.id_estado_reserva==2){
+    botonCobrar.classList.add('boton-deshabilitado');
+    botonCobrar.disabled=true;
+}
 
 if(reserva.id_estado_reserva ==1 || reserva.id_estado_reserva==3){
     botonAgregarProducto.classList.add('boton-deshabilitado');

@@ -375,6 +375,22 @@ span{
   color: white;
 }
 
+.w-full{
+  width: 100%;
+}
+
+.h-full{
+  height: 100%;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.jusCont-center{
+  justify-content: center;
+}
+
 .buscar__input::placeholder{
   color: rgba(255, 255, 255, 0.589);
   
@@ -436,6 +452,11 @@ span{
   font-size: 1.042vw;
   border-radius: 15px;
   font-weight: 700;
+  transition: 0.3s;
+}
+
+.contenido__Boton:hover{
+  font-size: 1.2vw;
 }
 
 .contenido__contenedor{
@@ -621,6 +642,10 @@ span{
   left: 0;
 }
 
+.contenedorFormularioModal.editar{
+  display: flex;
+}
+
 #hora_inicio,
 #hora_finalizacion{
   cursor: not-allowed;
@@ -726,6 +751,7 @@ span{
   text-align: center;
   align-content: center;
   text-decoration: none;
+  cursor: pointer;
  }
 
  .botonRegresar{
@@ -1027,9 +1053,7 @@ span{
     height: 100px;
   }
 
-  .contenido__Boton--cobrar{
-    height: 40px;
-  }
+  
 
   /*------------------- FORMULARIOS ----------------------------------*/
 
