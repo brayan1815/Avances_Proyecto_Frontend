@@ -18,12 +18,20 @@ const btnRestar=document.querySelector('#restar');
 const subtotal=document.querySelector('#subtotal');
 const contenedorCantComprar=document.querySelector('.contenedorCampo--displayFlex');
 const contenedorTabla=document.querySelector('.contenedorTabla');
-const formularioEditarProducto=document.querySelector('.contenedorFormularioModal.editar');
-const productoFormEditar=document.querySelector('#Producto');
-const cantDisponiblesFormEditar=document.querySelector(`.contenedorFormularioModal.editar #cantDisponible`);
-const precioProdFormEditar=document.querySelector('.contenedorFormularioModal.editar #precio_unidad');
-const campoCantAComprarFormEditar=document.querySelector('.contenedorFormularioModal.editar #cantidad');
-const subtotalFormEditar=document.querySelector('.contenedorFormularioModal.editar #subtotal')
+//----FORMULARIO EDITAR ----//
+const contenedorFormEditar=document.querySelector('.contenedorFormularioModal.editar')
+const formEditarConsumo=document.querySelector('.formulario.Editar');
+const nombreProd=document.querySelector('#Producto');
+const cantDispo=document.querySelector('.formulario.Editar #cantidades_disponibles');
+const prec=document.querySelector('.formulario.Editar #precio_unidad');
+const cant=document.querySelector('.formulario.Editar #cantidad');
+const btRestar=document.querySelector('.formulario.Editar #restar');
+const btSumar=document.querySelector('.formulario.Editar #sumar');
+const subt=document.querySelector('.formulario.Editar #subtotal');
+const btnCancel=document.querySelector('.formulario.Editar .formulario__boton--cancelar');
+
+
+
 
 
 cargarSelecrProductos(select);
@@ -75,52 +83,53 @@ horaInicioFin.textContent=`${quitarFOmatoIso(reserva.hora_inicio)} - ${quitarFOm
 cons.textContent=consola.nombre;
 precHor.textContent=`$${tipoConsola.precio_hora} c/h`;
 
-let cantidades=0;
+let cantidades=1;
 
+const sumarCantidad=(cantInicial,indicadorCant,maximo,precioUnitProd,indicadorSubt)=>{
+    if(cantInicial<maximo){
+        cantInicial++;
+        indicadorCant.value=cantInicial;
+        indicadorSubt.value=precioUnitProd*cantInicial;
+        return cantInicial;
+    }
+}
+
+const restarCantidad=(cantInicial,indicadorCant,precioProd,Subt)=>{
+    if(cantInicial>1){
+        cantInicial--;
+        indicadorCant.value=cantInicial;
+        Subt.value=precioProd*cantInicial;
+        return cantInicial;
+    }
+}
 
 window.addEventListener('click', async(event)=>{
+    
     const clase=event.target.getAttribute('class');
+    
     
     if(clase=="btnSumarRestar sumar"){
         const producto=await get(`productos/${select.value}`);
         const maximo=producto.cantidades_disponibles;
-        if(cantidades<maximo){
-            cantidades++;
-            campoCantAComprar.value=cantidades;
-            subtotal.value=(cantidades*producto.precio)
-            if(cantidades>0){
-                if(contenedorCantComprar.nextElementSibling)contenedorCantComprar.nextElementSibling.remove();
-            }
+
+        cantidades=sumarCantidad(cantidades,campoCantAComprar,producto.cantidades_disponibles,producto.precio,subtotal)
+        
+        if(cantidades>0){
+            if(contenedorCantComprar.nextElementSibling)contenedorCantComprar.nextElementSibling.remove();
         }
     }
-    if(clase=="btnSumarRestar sumar editar"){
-        // const producto=await get(`productos/${select.value}`);
-        const maximo=cantDisponiblesFormEditar.textContent;
-        cantidades=campoCantAComprarFormEditar.value;
-        if(cantidades<maximo){
-            cantidades++;
-            campoCantAComprarFormEditar.value=cantidades;
-            subtotalFormEditar.value=(cantidades*precioProdFormEditar)
-            if(cantidades>0){
-                if(contenedorCantComprar.nextElementSibling)contenedorCantComprar.nextElementSibling.remove();
-            }
-        }
+    else if(clase=="btnSumarRestar sumar editar"){
+        const cantInicial=Number(cant.value);
+        sumarCantidad(cantInicial,cant,Number(cantDispo.textContent),Number(prec.textContent),subt)
     }
     else if(clase=="btnSumarRestar restar"){
         const producto=await get(`productos/${select.value}`);
-        if(cantidades>0){
-            cantidades--;
-            campoCantAComprar.value=cantidades;
-            subtotal.value=(cantidades*producto.precio)
-        }
+
+        cantidades=restarCantidad(cantidades,campoCantAComprar,producto.precio,subtotal)
     }
     else if(clase=="btnSumarRestar restar editar"){
-        cantidades=campoCantAComprarFormEditar.value;
-        if(cantidades>0){
-            cantidades--;
-            campoCantAComprarFormEditar.value=cantidades;
-            subtotal.value=(cantidades*producto.precio)
-        }
+        const cantInicial=Number(cant.value);
+        restarCantidad(cantInicial,cant,Number(prec.textContent),subt);
     }
     else if(clase=="formulario__boton formulario__boton--cancelar"){
         select.value=0;
@@ -132,18 +141,20 @@ window.addEventListener('click', async(event)=>{
     }
     else if(clase=="registro__boton registro__boton--editar"){       
         const id=event.target.getAttribute('id');
-        
-        formularioEditarProducto.classList.add('displayFlex')
-        
-        const consumo=await get(`consumos/${id}`);
-        productoFormEditar.textContent=consumo.nombreProducto;
-        cantDisponiblesFormEditar.textContent=consumo.cantidadRestanteProducto;
-        precioProdFormEditar.textContent=consumo.precioProducto;
-        campoCantAComprarFormEditar.value=consumo.cantidad;
-        subtotalFormEditar.value=consumo.subtotal;        
+        const consumo=await get(`consumos/dto/${id}`);
+
+        nombreProd.textContent=consumo.nombreProducto;
+        cantDispo.textContent=consumo.cantidadRestanteProducto;
+        prec.textContent=consumo.precioProducto;
+        cant.value=consumo.cantidad;
+        subt.value=consumo.subtotal;
+        document.querySelector('#id_consumo').value=id;
+        contenedorFormEditar.classList.add('displayFlex');
+              
     }
     
 })
+
 
 const cerrarFomrulario=(contenedor)=>{
     contenedor.classList.remove('displayFlex');
@@ -161,7 +172,9 @@ select.addEventListener('change',async(event)=>{
         btnSumar.disabled=false;
         const producto=await get(`productos/${id}`);
         cantDisponibles.textContent=producto.cantidades_disponibles;
-        precioProducto.textContent=`$${producto.precio}`   
+        precioProducto.textContent=`$${producto.precio}` 
+        subtotal.value=producto.precio;
+        campoCantAComprar.value=1;  
     }else{
         btnRestar.disabled=true;
         btnSumar.disabled=true;
@@ -205,4 +218,33 @@ formulario.addEventListener('submit',async(event)=>{
         span.textContent="la cantidad minima para comprar es 1";
         contenedorCantComprar.insertAdjacentElement('afterend',span);
     }
+})
+
+// ------------------------------- FORMULARIO EDITAR------------------------------------//
+
+formEditarConsumo.addEventListener('submit',async(event)=>{
+    const info=validar(event);
+    const consumo=await get(`consumos/${info.id_consumo}`);
+    
+    consumo['cantidad']=Number(info.cantidad);
+    consumo['subtotal']=Number(info.subtotal); 
+    
+    const respuesta=await put ('consumos',consumo);
+    const res=await respuesta.json();
+    
+    if(respuesta.ok){
+        Swal.fire({
+            title: 'Exito',
+            text: res.mensaje,
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        })
+    }
+    
+    cerrarFomrulario(contenedorFormEditar)
+
+})
+
+btnCancel.addEventListener('click',()=>{
+    cerrarFomrulario(contenedorFormEditar)
 })
