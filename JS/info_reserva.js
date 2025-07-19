@@ -1,4 +1,5 @@
-import { get, post, put } from "../api.js";
+import { del, get, post, put } from "../api.js";
+import { confirmar, success } from "../Helpers/alertas.js";
 import { cargarSelecrProductos, crearFila, crearTabla, quitarFOmatoIso, validar } from "./MODULES/modules.js";
 
 const nombreUsuario=document.querySelector('.nombreUsuario');
@@ -25,10 +26,19 @@ const nombreProd=document.querySelector('#Producto');
 const cantDispo=document.querySelector('.formulario.Editar #cantidades_disponibles');
 const prec=document.querySelector('.formulario.Editar #precio_unidad');
 const cant=document.querySelector('.formulario.Editar #cantidad');
-const btRestar=document.querySelector('.formulario.Editar #restar');
-const btSumar=document.querySelector('.formulario.Editar #sumar');
+// const btRestar=document.querySelector('.formulario.Editar #restar');
+// const btSumar=document.querySelector('.formulario.Editar #sumar');
 const subt=document.querySelector('.formulario.Editar #subtotal');
 const btnCancel=document.querySelector('.formulario.Editar .formulario__boton--cancelar');
+const btnCobrar=document.querySelector('.contenido__Boton--cobrar');
+//-----FACTURA-------//
+const contenedorFactura=document.querySelector('.contenedorModal.fac');
+const consumoConsola=document.querySelector('#pago_consola');
+const consumoProductos=document.querySelector('#pago_consumo');
+const totPag=document.querySelector('#total');
+const  btnCancelfac=document.querySelector('.formulario__boton--cancelar.fac');
+const btnConfirCobro=document.querySelector('.formulario__boton.cob');
+console.log(btnConfirCobro);
 
 
 
@@ -39,6 +49,7 @@ cargarSelecrProductos(select);
 
 const params = new URLSearchParams(window.location.search);
 const id_reserva = params.get("id");
+btnCobrar.setAttribute('id',id_reserva)
 botonCobrar.setAttribute('id',id_reserva);
 
 const consumosReserva=await get(`consumos/reserva/${id_reserva}`);
@@ -52,7 +63,7 @@ if(consumosReserva.length>0){
 
     const cuerpoTabla=document.querySelector('.tabla__cuerpo');
     for (const consumo of consumosReserva) {
-        crearFila([consumo.nombreProducto,consumo.precioProducto,consumo.cantidad,consumo.subtotal],consumo.idConsumo,cuerpoTabla)
+        await crearFila([consumo.nombreProducto,consumo.precioProducto,consumo.cantidad,consumo.subtotal],consumo.idConsumo,cuerpoTabla)
     }
 }else{
     const mensaje=document.createElement('span');
@@ -61,12 +72,29 @@ if(consumosReserva.length>0){
     contenedorTabla.append(mensaje)
 }
 
+
+const btnsTabla=document.querySelectorAll('.registro__boton');
+[...btnsTabla].forEach(btn => {
+    btn.disabled=false;
+    btn.classList.remove('boton-deshabilitado');
+});
+
+
 botonCobrar.disabled=false;
 botonAgregarProducto.disabled=false;
 
 if(reserva.id_estado_reserva==1 || reserva.id_estado_reserva==2){
     botonCobrar.classList.add('boton-deshabilitado');
     botonCobrar.disabled=true;
+
+}
+
+if(reserva.id_estado_reserva==1 || reserva.id_estado_reserva==3){
+    
+    [...btnsTabla].forEach(btn => {
+        btn.disabled=true;
+        btn.classList.add('boton-deshabilitado');
+    });
 }
 
 if(reserva.id_estado_reserva ==1 || reserva.id_estado_reserva==3){
@@ -151,6 +179,20 @@ window.addEventListener('click', async(event)=>{
         document.querySelector('#id_consumo').value=id;
         contenedorFormEditar.classList.add('displayFlex');
               
+    }
+    else if(clase=="registro__boton registro__boton--eliminar"){
+        const id=event.target.getAttribute('id');
+
+        const confirmacion=await confirmar("eliminar el producto");
+        if(confirmacion.isConfirmed){
+            const respuesta=await del(`consumos/${id}`);
+            if(respuesta.ok){
+                success(await respuesta.json());
+            }
+        }
+        else{
+            alert("Se cancelo")
+        }
     }
     
 })
@@ -247,4 +289,30 @@ formEditarConsumo.addEventListener('submit',async(event)=>{
 
 btnCancel.addEventListener('click',()=>{
     cerrarFomrulario(contenedorFormEditar)
+})
+
+/*------------------COBRAR-------------------------*/
+
+btnCobrar.addEventListener('click',async(event)=>{
+    const id_reser=event.target.getAttribute('id');
+
+    const factura=await post(`facturas/reserva/${id_reser}`);
+    const res=await factura.json();
+
+    const consCons=res.totalTiempo+"";
+    const con=consCons.split('.');
+    consumoConsola.textContent=con[0];
+
+    const t=res.totalGeneral+"";
+    const to=t.split('.');
+    consumoProductos.textContent=res.totalProductos;
+    totPag.textContent=`Total: ${to[0]}`;
+    
+    contenedorFactura.classList.add('displayFlex');
+
+})
+
+btnCancelfac.addEventListener('click',()=>{
+    contenedorFactura.classList.remove('displayFlex');
+
 })

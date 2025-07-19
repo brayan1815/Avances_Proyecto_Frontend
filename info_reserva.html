@@ -88,6 +88,35 @@
             <button class="formulario__boton formulario__boton--cancelar editar" type="button">Cancelar</button>      
           </form>
         </div>
+
+        <div class="contenedorModal fac">
+          <div class="factura">
+            <h1 class=>Informacion de Cobro</h1>
+            <div class="factura__info">
+              <table class="tabla">
+                <thead class="tabla__encabezado">
+                  <tr>
+                    <th>Cobro</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody class="tabla__cuerpofac">
+                  <tr class="tabla__fila">
+                    <td class="tabla__campo tabla__campo--bordeVerde">Consola</td>
+                    <td class="tabla__campo tabla__campo--bordeVerde" id="pago_consola"></td>
+                  </tr>
+                  <tr class="tabla__fila">
+                    <td class="tabla__campo tabla__campo--bordeVerde">Consumo</td>
+                    <td class="tabla__campo tabla__campo--bordeVerde" id="pago_consumo"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h1 id="total"></h1>
+            <button class="formulario__boton cob">Cobrar</button>
+            <button class="formulario__boton formulario__boton--cancelar fac">Cancelar</button>
+          </div>
+        </div>
         <div class="contenido__contenedor contenido__contenedor--grande">
           <div class="infoReserva">
             <p class="infoReserva__texto nombreUsuario"></p>
@@ -98,46 +127,9 @@
           <div class="productosReserva">
             <div class="contenedorTabla">
 
-              <!-- <table class="tabla">
-                <thead class="tabla__encabezado">
-                  <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>subtotal</th>
-                  </tr>
-                </thead>
-                <tbody  class="tabla__cuerpo">
-                  <tr class="tabla__fila">
-                    <td class="tabla__campo tabla__campo--bodeVerde"> Papas Margarita</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">$3.000</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">2</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">$6000</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">
-                      <div class="contenedorBotonesTabla">
-                        <a href="info_reserva.html" class="registro__boton registro__boton--eliminar"><i class="bi bi-trash-fill"></i></a>
-                        <a href="info_reserva.html" class="registro__boton registro__boton--editar"><i class="bi bi-pencil-square"></i></a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="tabla__fila">
-                    <td class="tabla__campo tabla__campo--bodeVerde"> Papas Margarita</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">$3.000</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">2</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">$6000</td>
-                    <td class="tabla__campo tabla__campo--bodeVerde">
-                      <div class="contenedorBotonesTabla">
-                        <a href="info_reserva.html" class="registro__boton registro__boton--eliminar"><i class="bi bi-trash-fill"></i></a>
-                        <a href="info_reserva.html" class="registro__boton registro__boton--editar"><i class="bi bi-pencil-square"></i></a>
-                      </div>
-                    </td>
-                  </tr>
-                  
-                </tbody>
-              </table> -->
             </div>
             <!-- <button class="boton__tabla">Agregar Producto</button> -->
-            <button href="Agregar_procucto.html" class="boton__tabla">Agregar Producto</button>
+            <button class="boton__tabla">Agregar Producto</button>
           </div>
           <div class="botonRegresar">
             <button class="contenido__Boton contenido__Boton--cobrar">Cobrar</button>
