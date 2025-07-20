@@ -38,7 +38,7 @@ const consumoProductos=document.querySelector('#pago_consumo');
 const totPag=document.querySelector('#total');
 const  btnCancelfac=document.querySelector('.formulario__boton--cancelar.fac');
 const btnConfirCobro=document.querySelector('.formulario__boton.cob');
-console.log(btnConfirCobro);
+const selectMetodoPago=document.querySelector('#metodo_pago');
 
 
 
@@ -315,4 +315,38 @@ btnCobrar.addEventListener('click',async(event)=>{
 btnCancelfac.addEventListener('click',()=>{
     contenedorFactura.classList.remove('displayFlex');
 
+})
+
+const metodosPago=await get('metodospago');
+
+metodosPago.forEach(metodo => {
+    const option=document.createElement('option');
+    option.setAttribute('value',metodo.id);
+    option.textContent=metodo.metodoPago;
+    selectMetodoPago.append(option);
+});
+
+btnConfirCobro.addEventListener('click',async()=>{
+    // const reserva=await get(`reservas/${id_reserva}`);
+    const factura=await post(`facturas/reserva/${id_reserva}`);
+    const fac=await factura.json();
+    
+    
+    if(selectMetodoPago.value!=0){
+        const pago=await post(`facturas/pago/${fac.id}/${selectMetodoPago.value}`);
+        const pag=await pago.json();
+
+        if(pago.ok){
+            await success(pag);
+            contenedorFactura.classList.remove('displayFlex');
+            window.location.href = "reservas.html";
+        }
+    }else{
+        Swal.fire({
+            title: 'Error',
+            text: 'Debe seleccionar primero el metodo de pago',
+            icon: 'error',
+            confirmButtonText: 'Cool'
+        })
+    }
 })

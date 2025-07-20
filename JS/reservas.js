@@ -16,7 +16,9 @@ if(reservas.length>0){
 
 
     for (const reserva of reservas) {
-      await crearFilaTablaReservas(reserva,reserva.id,cuerpoTabla);
+      if(reserva.idEstadoReserva!=4){
+        await crearFilaTablaReservas(reserva,reserva.id,cuerpoTabla);
+      }
     }
 }
 
@@ -81,7 +83,9 @@ const buscarReservas = async (event) => {
     const documento = String(usu.documento);
 
     if (texto === "" || regex.test(documento)) {
-      crearFilaTablaReservas(reserva, reserva.id, cuerrpoTabla);
+      if(reserva.idEstadoReserva!=4){
+        crearFilaTablaReservas(reserva, reserva.id, cuerrpoTabla);
+      }
     }
   }
 
